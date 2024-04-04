@@ -64,7 +64,7 @@
 					</li>
 					
 					<li class="nav-item">
-						<a class="nav-link" href="services.php">Hostels</a>
+						<a class="nav-link" href="application_form.php">Application Form</a>
 					</li>
 					
 					<li class="nav-item">
