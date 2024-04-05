@@ -52,7 +52,7 @@ if(isset($_POST['submit'])){
         }
     }
     else{
-        header("Location: ../application_form.php?error=sqlerror");
+        // header("Location: ../application_form.php?error=sqlerror");
         echo "<script type='text/javascript'>alert('Some error occured for checking password'); window.location.href='../application_form.php?error=sqlerror';</script>";   
     }
 
