@@ -68,7 +68,7 @@
 					</li>
 					
 					<li class="nav-item">
-						<a class="nav-link" href="contact.php">Contact</a>
+						<a class="nav-link" href="fill_roommates.php">Fill Roommates</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="message_user.php">Message Received</a>

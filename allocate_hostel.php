@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title> HRAP | Manager | Allocate Rooms</title>
+<title> HRAP | Manager | Allocate Hostel</title>
 	
 	<!-- Meta tag Keywords -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -111,7 +111,7 @@
 	<div class="container">
         <h2 class="heading text-capitalize mb-sm-5 mb-4">Enter Number of seats per branch</h2>
 			<div class="mail_grid_w3l">
-				<form action="allocate_room.php" method="POST" onsubmit="return validateForm()">
+				<form action="allocate_hostel.php" method="POST" onsubmit="return validateForm()">
 					<div>
 						<label class="heading text-capitalize" style="font-weight:bold;" for="civil">civil</label>
                         <input class="allocate_inp" type="number" id="civil" name="civil" required>
@@ -255,7 +255,7 @@ if(isset($_POST['submit_and_allocate'])){
 					$row = mysqli_fetch_assoc($result);
 					if(!$row){
 						continue;
-				
+						
 					}
 					echo '<tr>';
 					echo '<td>'.$branches[$i]->alloted_students[$j]->mis.'</td>';
@@ -264,12 +264,38 @@ if(isset($_POST['submit_and_allocate'])){
 					echo '<td>'.$branches[$i]->alloted_students[$j]->backlogs.'</td>';
 					echo '<td>'.$branches[$i]->alloted_students[$j]->category.'</td>';
 					echo '</tr>';
+					
+					$sqlupdate = "UPDATE Applications SET IsApproved = 1 WHERE MIS='$stdmis'";
+					$resultupdate = mysqli_query($conn,$sqlupdate);
+					// if($resultupdate){
+					// 	echo 'Applications table updated successfully!';
+					// } else {
+					// 	echo 'Error updating applications table: ' . mysqli_error($conn);
+					// }
+
 				}
 				echo '</tbody>';
 				echo '</table>';
 			}
-			echo '<input type="button" class="btn btn-primary" value="Notify Students about Allotment" name="notify_students_allotment"></input>';
+			// // echo '<input type="button" class="btn btn-primary" value="Notify Students about Allotment" name="notify_students_allotment"></input>';
+			// echo '<form action="allocate_hostel.php" method="POST">';
+			// 	echo '<input type="submit" class="btn btn-primary" value="Notify Students about Allotment" name="notify_students_allotment">';
+			// echo '</form>';
+			// Add a form for the button
+			echo '<form id="notify_form" action="allocate_hostel.php" method="POST">';
+			echo '<input type="submit" class="btn btn-primary" value="Notify Students about Allotment" name="notify_students_allotment">';
+			echo '</form>';
+			
 			echo '</div>';
+
+
+
+			// Add JavaScript to check if the button is clicked
+			echo '<script>';
+			echo 'document.getElementById("notify_form").addEventListener("submit", function(event) {';
+			echo '    alert("Button clicked!");'; // Replace this with your desired JavaScript code
+			echo '});';
+			echo '</script>';
 			
 
 

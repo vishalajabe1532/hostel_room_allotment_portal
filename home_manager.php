@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title> Intrend Interior Category Flat Bootstrap Responsive Website Template | Index : W3layouts</title>
+<title> HRAP | Hostel Manager</title>
 
 	<!-- Meta tag Keywords -->
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -69,13 +69,13 @@
 						<ul class="dropdown-menu agile_short_dropdown">
 							
 							<li>
-								<a href="allocate_room.php">Allocate Rooms</a>
+								<a href="allocate_hostel.php">Allocate Hostel</a>
 							</li>
 							
 							
 							<!-- float application forms -->
 							<li>
-								<a href="float_application_form.php">Float forms</a>
+								<a href="../includes/float_application_form.php">Float forms</a>
 							</li>
 
 
