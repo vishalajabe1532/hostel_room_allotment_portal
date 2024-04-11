@@ -175,6 +175,7 @@ error_reporting(E_ALL & ~E_NOTICE);
 ini_set('display_errors', 0);
 
 function getStudentName($mis){
+	require 'config.inc.php';
     $sql = "SELECT `Name` FROM Students WHERE MIS='$mis'";
     $result = mysqli_query($conn, $sql);
     // ysqli_connect

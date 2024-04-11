@@ -101,57 +101,6 @@
   
   
   
-  <section class="contact py-5">
-	<div class="container">
-		<h2 class="heading text-capitalize mb-sm-5 mb-4"> Fill Roommates </h2>
-			<div class="mail_grid_w3l">
-				<form action="includes/fill_roommates.inc.php?" method="POST">
-					<div class="row">
-						<div class="col-md-6 contact_left_grid" data-aos="fade-right">
-							<div class="contact-fields-w3ls">
-								<input type="text" name="name" placeholder="Name" value="<?php echo $_SESSION['name']; ?>" required="" readonly>
-							</div>
-							<div class="contact-fields-w3ls">
-								<input type="text" name="mis_no1" placeholder="MIS" value="<?php echo $_SESSION['mis']?>" required="" readonly>
-							</div>
-							<div class="contact-fields-w3ls">
-								<input type="text" name="year_of_study" placeholder="Year of study" value="<?php echo $_SESSION['year_of_study']?>" required="" readonly>
-							</div>
-							<div class="contact-fields-w3ls">
-								<input type="text" name="cgpa" placeholder="CGPA" value="<?php echo $cgpa?>" required="" readonly>
-							</div>
-                            <!-- roommate 1 -->
-							<div class="contact-fields-w3ls">
-                                <input type="text" name="mis_no2" placeholder="MIS of Roommate 1"  required="" >
-							</div>
-                            <!-- roommate 2 -->
-							<div class="contact-fields-w3ls">
-                                <input type="text" name="mis_no3" placeholder="MIS of Roommate 2"  required="" >
-							</div>
-                            <!-- roommate 3 -->
-							<div class="contact-fields-w3ls">
-								<input type="text" name="mis_no4" placeholder="MIS of Roommate 3"  required="" >
-							</div>
-							
-							<div class="contact-fields-w3ls">
-								<input type="password" name="pwd" placeholder="Your Password" required="">
-							</div>
-						</div>
-						
-						<input type="submit" name="submit" value="Click to Submit">
-						
-					</div>
-
-				</form>
-			</div>
-		
-	</div>
-</section>
-
-
-
-
-
 
 
 
@@ -160,12 +109,32 @@
 
 <section class="contact py-5" style="width:100%">
 	<div class="container" style="width:100%">
+        <h2 class="heading text-capitalize mb-sm-5 mb-4">Fill Preferences for Rooms with Room numbers</h2>
         
 
         <div class="mail_grid_w3l" style="width:100%">
-            <form action="includes/fill_room_preferences.inc.php" method="POST" >
-                <input type="hidden" name="mis_no" value="<?php echo $_SESSION['mis']; ?>">
-                <input type="submit" value="Fill Room Preferences" name="fill_preferences">
+            <form action="includes/fill_room_preferences.inc.php" method="POST" onsubmit="return validateForm()">
+                <?php
+                for ($i = 1; $i <= 50; $i++) {
+                    echo '<input style="width: 19%; margin-right: 1%; margin-bottom: 1rem; display: inline-block;" class="allocate_inp" type="number" name="pref' . $i . '" placeholder="Preference ' . $i . '" required="">';
+
+                    // Start a new row after every 5 input boxes
+                    if ($i % 5 == 0) {
+                        echo '<br>'; // Line break after each row
+                    }
+                }
+                ?>
+                <br>
+                <br>
+
+                <div class="contact-fields-w3ls">
+                    <input type="text" name="mis_no" placeholder="MIS" value="<?php echo $_SESSION['mis']; ?>" required="" readonly>
+                </div>
+                <div class="contact-fields-w3ls">
+                    <input type="password" name="pwd" placeholder="Your Password" required="">
+                </div>
+
+                <input type="submit" value="Submit Preferences" name="submit_preferences">
             </form>
         </div>
 
@@ -173,6 +142,28 @@
 
 	</div>
 </section>
+
+
+
+
+
+	
+<script type="text/javascript">
+    function validateForm() {
+        var inputs = document.querySelectorAll('.allocate_inp');
+        for (var i = 0; i < inputs.length; i++) {
+            if (inputs[i].value < 0 || isNaN(inputs[i].value) || inputs[i].value.indexOf('.') !== -1) {
+                alert("Please enter a non-negative integer.");
+                inputs[i].focus();
+                return false;
+            }
+        }
+        return true;
+    }
+</script>
+
+
+
 
 
 

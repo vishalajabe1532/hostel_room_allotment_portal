@@ -75,7 +75,10 @@
 							
 							<!-- float application forms -->
 							<li>
-								<a href="../includes/float_application_form.php">Float forms</a>
+								<a href="float_application_forms.php">Float forms</a>
+							</li>
+							<li>
+								<a href="allocate_rooms.php">Allocate Rooms</a>
 							</li>
 
 
