@@ -126,6 +126,16 @@ function getStudentName($mis){
 
     }
 }
+function getBranchName($mis){
+	require 'includes/config.inc.php';
+    $sql = "SELECT `Branch` FROM Students WHERE MIS='$mis'";
+    $result = mysqli_query($conn, $sql);
+    // ysqli_connect
+    if($row = mysqli_fetch_assoc($result)){
+        return $row['Branch'];
+
+    }
+}
 
 
 require 'includes/config.inc.php';
@@ -143,54 +153,46 @@ require 'includes/config.inc.php';
 
 
 
-
 echo '<div class="container ">';
-echo '<h3 class="heading text-capitalize " >Allocated Rooms with thier Members :</h3>';
-$query = "SELECT * FROM Rooms";
-$result = mysqli_query($conn,$query);
+echo '<h3 class="heading text-capitalize " >Appications for Hostel</h3>';
 
 echo '<table class="table table-hover">';
 echo '<thead>';
 echo '<tr>';
-echo '<th>Room No.</th>';
-echo '<th>Member 1</th>';
-echo '<th>Member 2</th>';
-echo '<th>Member 3</th>';
-echo '<th>Member 4</th>';
+echo '<th>MIS</th>';
+echo '<th>Name</th>';
+echo '<th>Branch</th>';
+echo '<th>CGPA</th>';
+echo '<th>Backlogs</th>';
 
 echo '</tr>';
 echo '</thead>';
 echo '<tbody>';
 
+$query = "SELECT * FROM Applications";
+$result = mysqli_query($conn,$query);
 
 while($row = mysqli_fetch_assoc($result)){
-	$room_no = $row['room_no'];
-	$member1 = $row['MIS1'];
-	$member2 = $row['MIS2'];
-	$member3 = $row['MIS3'];
-	$member4 = $row['MIS4'];
-	$membername1 = getStudentName($member1);
-	$membername2 = getStudentName($member2);
-	$membername3 = getStudentName($member3);
-	$membername4 = getStudentName($member4);
-	echo '<tr>';
-	echo '<td>'.$room_no.'</td>';
-	echo '<td>'.$member1.'<br>'.$membername1.'</td>';
-	echo '<td>'.$member2.'<br>'.$membername2.'</td>';
-	echo '<td>'.$member3.'<br>'.$membername3.'</td>';
-	echo '<td>'.$member4.'<br>'.$membername4.'</td>';
+	$mis = $row['MIS'];
+    $name = getStudentName($mis);
+    $branch = getBranchName($mis);
+    $cgpa = $row['CGPA'];
+    $backlogs=$row['Backlogs'];
 
+	echo '<tr>';
+	echo '<td>'.$mis.'</td>';
+	echo '<td>'.$name.'</td>';
+	echo '<td>'.$branch.'</td>';
+	echo '<td>'.$cgpa.'</td>';
+	echo '<td>'.$backlogs.'</td>';
+	
 	
 	echo '</tr>';
 }
 
 
-
-
-
-
-	
 ?>
+
 
 
 
@@ -202,7 +204,7 @@ while($row = mysqli_fetch_assoc($result)){
 <br>
 
 <!-- footer -->
-<footer class="py-5">
+<!-- <footer class="py-5">
 	<div class="container py-md-5">
 		<div class="footer-logo mb-5 text-center">
 			<a class="navbar-brand" href="https://www.coeptech.ac.in/" target="_blank">COEP TECH</a>
@@ -227,7 +229,7 @@ while($row = mysqli_fetch_assoc($result)){
 			
 		</div>
 	</div>
-</footer>
+</footer> -->
 <!-- footer -->
 
 <!-- js-scripts -->

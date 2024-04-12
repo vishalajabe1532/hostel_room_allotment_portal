@@ -81,10 +81,13 @@
 								<a href="allocate_rooms.php">Allocate Rooms</a>
 							</li>
 							<li>
-								<a href="allocate_rooms.php">View Applications</a>
+								<a href="view_applications.php">View Applications</a>
 							</li>
 							<li>
-								<a href="allocated_rooms.php">View Allocated Rooms Rooms</a>
+								<a href="hostel_allotment_list.php">View Hostel Allotment List</a>
+							</li>
+							<li>
+								<a href="allocated_rooms.php">View Allocated Rooms</a>
 							</li>
 
 

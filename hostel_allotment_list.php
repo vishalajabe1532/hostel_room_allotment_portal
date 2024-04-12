@@ -110,14 +110,20 @@
 
 
 
-<?php
 
+
+
+
+<?php
+// display_branch_student($branches,$branch_list){
+	
+// }
 
 error_reporting(E_ALL & ~E_NOTICE);
 ini_set('display_errors', 0);
 
 function getStudentName($mis){
-	require 'includes/config.inc.php';
+	require 'config.inc.php';
     $sql = "SELECT `Name` FROM Students WHERE MIS='$mis'";
     $result = mysqli_query($conn, $sql);
     // ysqli_connect
@@ -133,10 +139,8 @@ require 'includes/config.inc.php';
 
 
 
-
-
-
-
+//every thing fine
+$branch_list = array('civil','comp','elec','entc','instru','mech','meta','prod');
 
 
 
@@ -145,44 +149,57 @@ require 'includes/config.inc.php';
 
 
 echo '<div class="container ">';
-echo '<h3 class="heading text-capitalize " >Allocated Rooms with thier Members :</h3>';
-$query = "SELECT * FROM Rooms";
-$result = mysqli_query($conn,$query);
+echo '<h3 class="heading text-capitalize " >Hostel Allotment List :</h3>';
+for ($i = 0; $i < 8; $i++) { 
+    echo '<h3 class="heading text-capitalize " >'.$branch_list[$i].' :</h3>';
+    echo '<table class="table table-hover">';
+    echo '<thead>';
+    echo '<tr>';
+    echo '<th>MIS</th>';
+    echo '<th>Student Name</th>';
+    echo '<th>Branch</th>';
+    echo '<th>CGPA</th>';
+    echo '<th>Backlogs</th>';
+    echo '<th>Category</th>';
+    echo '</tr>';
+    echo '</thead>';
+    echo '<tbody>';
 
-echo '<table class="table table-hover">';
-echo '<thead>';
-echo '<tr>';
-echo '<th>Room No.</th>';
-echo '<th>Member 1</th>';
-echo '<th>Member 2</th>';
-echo '<th>Member 3</th>';
-echo '<th>Member 4</th>';
-
-echo '</tr>';
-echo '</thead>';
-echo '<tbody>';
+    $br = $branch_list[$i];
 
 
-while($row = mysqli_fetch_assoc($result)){
-	$room_no = $row['room_no'];
-	$member1 = $row['MIS1'];
-	$member2 = $row['MIS2'];
-	$member3 = $row['MIS3'];
-	$member4 = $row['MIS4'];
-	$membername1 = getStudentName($member1);
-	$membername2 = getStudentName($member2);
-	$membername3 = getStudentName($member3);
-	$membername4 = getStudentName($member4);
-	echo '<tr>';
-	echo '<td>'.$room_no.'</td>';
-	echo '<td>'.$member1.'<br>'.$membername1.'</td>';
-	echo '<td>'.$member2.'<br>'.$membername2.'</td>';
-	echo '<td>'.$member3.'<br>'.$membername3.'</td>';
-	echo '<td>'.$member4.'<br>'.$membername4.'</td>';
+    $query =  "SELECT * FROM Applications A JOIN Students S ON A.MIS=S.MIS WHERE A.IsApproved=1 AND S.Branch='$br' ORDER BY A.CGPA DESC";
+    $result = mysqli_query($conn,$query);
 
-	
-	echo '</tr>';
+
+    while($row = mysqli_fetch_assoc($result)){
+        $mis = $row['MIS'];
+        $name = $row['Name'];
+        $branch = $row['Branch'];
+        $cgpa = $row['CGPA'];
+        $backlogs = $row['Backlogs'];
+        $category = $row['Category'];
+        echo '<tr>';
+        echo '<td>'.$mis.'</td>';
+        echo '<td>'.$name.'</td>';
+        echo '<td>'.$branch.'</td>';
+        echo '<td>'.$cgpa.'</td>';
+        echo '<td>'.$backlogs.'</td>';
+        echo '<td>'.$category.'</td>';
+        echo '</tr>';
+        
+    }
+    echo '</tbody>';
+    echo '</table>';
 }
+// // echo '<input type="button" class="btn btn-primary" value="Notify Students about Allotment" name="notify_students_allotment"></input>';
+// echo '<form action="allocate_hostel.php" method="POST">';
+// 	echo '<input type="submit" class="btn btn-primary" value="Notify Students about Allotment" name="notify_students_allotment">';
+// echo '</form>';
+// Add a form for the button
+
+
+
 
 
 
@@ -191,6 +208,21 @@ while($row = mysqli_fetch_assoc($result)){
 
 	
 ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
