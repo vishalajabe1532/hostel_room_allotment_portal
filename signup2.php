@@ -1,3 +1,7 @@
+<?php
+require 'includes/config.inc.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,13 +38,9 @@
                 <label>Student MIS No</label>
                 <div class="group">
                     <i class="fas fa-id-badge"></i>
-                    <input type="text" class="form-control" name="mis_no" placeholder="MIS No" required="required" />
+                    <input type="text" class="form-control" name="mis_no" value="<?php echo $_SESSION['mis']?>" placeholder="MIS No" required="required" readonly/>
                 </div>
             </div>
-
-
-            <!-- verify btn to get otp -->
-            <button type="button" id="get-otp" name="get_otp">Get OTP</button>
 
 
             <div class=" w3l-form-group">
@@ -59,77 +59,15 @@
         </form>
         <p class=" w3l-register-p">Already a member?<a href="index.php" class="register"> Login</a></p>
     </div>
+
+
+
     <footer>
         <p class="copyright-agileinfo"> &copy; 2024 Software engineering Project. All Rights Reserved | Design by Anuj and Vishal</p>
     </footer>
 
-    <!-- Include jQuery library for easier AJAX handling -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            // Attach a click event handler to the "Get OTP" button
-            $('#get-otp').click(function () {
-                // Get the MIS data from the input field
-                var mis = $('[name="mis_no"]').val();
-                console.log(mis);
-
-                // Send the MIS data to the backend using AJAX
-                $.ajax({
-                    url: 'includes/signup.inc.php',
-                    method: 'POST',
-                    data: {
-                        mis_no: mis,
-                        get_otp: 'clicked'
-                    },
-                    success: function (response) {
-                        // Handle the response from the backend
-                        // This can be displaying a message or performing other actions
-                        
-                        alert("OTP has been sent to your registered COEP mail address. Valid for 5 minutes.")
-                        
-                        console.log(response);
-                        // console.dir(response);
-                    },
-                    error: function (xhr, status, error) {
-                        // Handle errors, if any
-                        console.error(error);
-                    }
-                });
-                // console.log("btn clicked");
-
-            });
-
-            // // Attach a click event handler to the "Verify OTP" button
-            // $('#verify-otp').click(function () {
-            //     // Get the OTP data from the input field
-            //     var otp = $('[name="otp"]').val();
-            //     var mis = $('[name="mis_no"]').val();
-
-            //     // Send the OTP data to the backend using AJAX
-            //     $.ajax({
-            //         url: 'includes/verify-otp.inc.php',
-            //         method: 'POST',
-            //         data: {
-            //             otp: otp,
-            //             mis_no: mis,
-            //             verify_otp: 'clicked',
 
 
-            //         },
-            //         success: function (response) {
-            //             // Handle the response from the backend
-            //             // This can be displaying a message or performing other actions
-            //             console.log(response);
-            //         },
-            //         error: function (xhr, status, error) {
-            //             // Handle errors, if any
-            //             console.error(error);
-            //         }
-            //     });
-            // });
-        });
-    </script>
 
 </body>
 

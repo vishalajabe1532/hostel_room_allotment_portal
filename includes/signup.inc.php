@@ -1,5 +1,8 @@
 <?php
+error_reporting(E_ALL & ~E_NOTICE);
+ini_set('display_errors', 0);
 session_start();
+
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -9,6 +12,7 @@ if (isset($_POST['get_otp'])) {
     require 'vendor/autoload.php';
 
     $mis = $_POST['mis_no'];
+    $_SESSION['mis'] = $mis;
 
     if (!preg_match("/^[a-zA-Z0-9]*$/", $mis)) {
         header("Location: ../signup.php?error=invalidroll");
@@ -22,8 +26,9 @@ if (isset($_POST['get_otp'])) {
         $student_mail = $row['Mail'];
         $is_registered = $row['Is_registered'];
         if ($is_registered == 1) {
-            header("Location: ../index.php?error=alreadyregistered");
+            echo "<script type='text/javascript'>alert('You have already registered to HRAP.'); window.location.href='../index.php?error=alreadyregistered';</script>";
             exit();
+
         }
 
         $otp = rand(111111, 999999);
@@ -54,11 +59,13 @@ if (isset($_POST['get_otp'])) {
             $mail->Body    = 'OTP for MIS No.: ' . $mis . ' for COEP\'s Hostel Room Allotment Portal SignUp is ' . $otp . '. Please do not share your OTP with anyone. Thank you';
 
             $mail->send(); // Send the email
-            echo "success"; // This is unnecessary if you're redirecting
+            // echo "success"; // This is unnecessary if you're redirecting
+            echo "<script type='text/javascript'>alert('OTP has been sent to your registered COEP mail address. Valid for 5 minutes.'); window.location.href='../signup2.php?otpsent=success';</script>";
+
             exit();
         } catch (Exception $e) {
-            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-            exit();
+            echo "<script type='text/javascript'>alert('OTP not due to some problem.'); window.location.href='../signup.php?error=someerror';</script>";
+
         }
     } else {
         header("Location: ../signup.php?error=nouser");

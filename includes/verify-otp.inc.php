@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ALL & ~E_NOTICE);
+ini_set('display_errors', 0);
 session_start();
 if (isset($_POST['verify_otp'])) {
     if(isset($_SESSION['otp'])  && isset($_POST['otp'])){

@@ -28,7 +28,7 @@
     <h1>Hostel Room Allotment Portal</h1>
     <div class=" w3l-login-form">
         <h2>Sign Up Here</h2>
-        <form action="includes/verify-otp.inc.php" method="POST">
+        <form action="includes/signup.inc.php" method="POST">
 
             <div class=" w3l-form-group">
                 <label>Student MIS No</label>
@@ -40,96 +40,20 @@
 
 
             <!-- verify btn to get otp -->
-            <button type="button" id="get-otp" name="get_otp">Get OTP</button>
+            <button type="submit" id="get-otp" name="get_otp">Get OTP</button>
 
-
-            <div class=" w3l-form-group">
-                <label>OTP</label>
-                <div class="group">
-                    <i class="fas fa-unlock"></i>
-                    <input type="password" class="form-control" name="otp" placeholder="OTP" required="required" />
-                </div>
-            </div>
-
-
-            <!-- verify btn to get otp -->
-            <button type="submit" id="verify-otp" name="verify_otp">Verify OTP</button>
 
             
         </form>
         <p class=" w3l-register-p">Already a member?<a href="index.php" class="register"> Login</a></p>
     </div>
+
+
+
+
     <footer>
         <p class="copyright-agileinfo"> &copy; 2024 Software engineering Project. All Rights Reserved | Design by Anuj and Vishal</p>
     </footer>
-
-    <!-- Include jQuery library for easier AJAX handling -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            // Attach a click event handler to the "Get OTP" button
-            $('#get-otp').click(function () {
-                // Get the MIS data from the input field
-                var mis = $('[name="mis_no"]').val();
-                console.log(mis);
-
-                // Send the MIS data to the backend using AJAX
-                $.ajax({
-                    url: 'includes/signup.inc.php',
-                    method: 'POST',
-                    data: {
-                        mis_no: mis,
-                        get_otp: 'clicked'
-                    },
-                    success: function (response) {
-                        // Handle the response from the backend
-                        // This can be displaying a message or performing other actions
-                        
-                        alert("OTP has been sent to your registered COEP mail address. Valid for 5 minutes.")
-                        
-                        console.log(response);
-                        // console.dir(response);
-                    },
-                    error: function (xhr, status, error) {
-                        // Handle errors, if any
-                        console.error(error);
-                    }
-                });
-                // console.log("btn clicked");
-
-            });
-
-            // // Attach a click event handler to the "Verify OTP" button
-            // $('#verify-otp').click(function () {
-            //     // Get the OTP data from the input field
-            //     var otp = $('[name="otp"]').val();
-            //     var mis = $('[name="mis_no"]').val();
-
-            //     // Send the OTP data to the backend using AJAX
-            //     $.ajax({
-            //         url: 'includes/verify-otp.inc.php',
-            //         method: 'POST',
-            //         data: {
-            //             otp: otp,
-            //             mis_no: mis,
-            //             verify_otp: 'clicked',
-
-
-            //         },
-            //         success: function (response) {
-            //             // Handle the response from the backend
-            //             // This can be displaying a message or performing other actions
-            //             console.log(response);
-            //         },
-            //         error: function (xhr, status, error) {
-            //             // Handle errors, if any
-            //             console.error(error);
-            //         }
-            //     });
-            // });
-        });
-    </script>
 
 </body>
 
