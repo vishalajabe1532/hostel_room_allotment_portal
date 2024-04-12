@@ -110,42 +110,167 @@
 </div>
 <!-- //banner --> 
 
-<section class="contact py-5">
-	<div class="container">
-		<h2 class="heading text-capitalize mb-sm-5 mb-4"> Application Form </h2>
-			<div class="mail_grid_w3l">
-				<form action="includes/application_form.inc.php?" method="POST">
-					<div class="row">
-						<div class="col-md-6 contact_left_grid" data-aos="fade-right">
-							<div class="contact-fields-w3ls">
-								<input type="text" name="name" placeholder="Name" value="<?php echo $_SESSION['name']; ?>" required="" readonly>
-							</div>
-							<div class="contact-fields-w3ls">
-								<input type="text" name="mis_no" placeholder="MIS" value="<?php echo $_SESSION['mis']?>" required="" readonly>
-							</div>
-							<div class="contact-fields-w3ls">
-								<input type="text" name="year_of_study" placeholder="Year of study" value="<?php echo $_SESSION['year_of_study']?>" required="" readonly>
-							</div>
-							<div class="contact-fields-w3ls">
-								<input type="text" name="cgpa" placeholder="CGPA"  required="" >
-							</div>
-							<div class="contact-fields-w3ls">
-								<input type="text" name="backlogs" placeholder="Number of Backlogs"  required="" >
-							</div>
-							<div class="contact-fields-w3ls">
-								<input type="password" name="pwd" placeholder="Password" required="">
-							</div>
-						</div>
-						
-						<input type="submit" name="submit" value="Click to Apply">
-						
-					</div>
 
-				</form>
-			</div>
-		
-	</div>
-</section>
+
+
+
+
+
+
+
+
+<?php
+// display_branch_student($branches,$branch_list){
+	
+// }
+
+error_reporting(E_ALL & ~E_NOTICE);
+ini_set('display_errors', 0);
+
+function getStudentName($mis){
+	require 'includes/config.inc.php';
+    $sql = "SELECT `Name` FROM Students WHERE MIS='$mis'";
+    $result = mysqli_query($conn, $sql);
+    // ysqli_connect
+    if($row = mysqli_fetch_assoc($result)){
+        return $row['Name'];
+
+    }
+}
+function getStudentBranch($mis){
+	require 'includes/config.inc.php';
+    $sql = "SELECT `Branch` FROM Students WHERE MIS='$mis'";
+    $result = mysqli_query($conn, $sql);
+    // ysqli_connect
+    if($row = mysqli_fetch_assoc($result)){
+        return $row['Branch'];
+
+    }
+}
+function getStudentCGPA($mis){
+	require 'includes/config.inc.php';
+    $sql = "SELECT `CGPA` FROM Applications WHERE MIS='$mis'";
+    $result = mysqli_query($conn, $sql);
+    // ysqli_connect
+    if($row = mysqli_fetch_assoc($result)){
+        return $row['CGPA'];
+
+    }
+}
+function getStudentBacklogs($mis){
+	require 'includes/config.inc.php';
+    $sql = "SELECT `Backlogs` FROM Applications WHERE MIS='$mis'";
+    $result = mysqli_query($conn, $sql);
+    // ysqli_connect
+    if($row = mysqli_fetch_assoc($result)){
+        return $row['Backlogs'];
+
+    }
+}
+
+
+require 'includes/config.inc.php';
+
+
+
+
+
+$mis = $_SESSION['mis'];
+
+
+
+
+
+echo '<div class="container ">';
+echo '<h3 class="heading text-capitalize " >Your Room :</h3>';
+
+
+echo '<table class="table table-hover">';
+echo '<thead>';
+echo '<tr>';
+echo '<th>Room Number</th>';
+echo '<th>Member 1</th>';
+echo '<th>Member 2</th>';
+echo '<th>Member 3</th>';
+echo '<th>Member 4</th>';
+echo '</tr>';
+echo '</thead>';
+echo '<tbody>';
+
+$query = "SELECT * FROM Rooms WHERE MIS1 = '$mis' OR MIS2 = '$mis' OR MIS3 = '$mis' OR MIS4 = '$mis'";
+$result = mysqli_query($conn,$query);
+
+if($row = mysqli_fetch_assoc($result)){
+    //room alloted to him
+    $room_no = $row['room_no'];
+    $mis1 = $row['MIS1'];
+    $mis2 = $row['MIS2'];
+    $mis3 = $row['MIS3'];
+    $mis4 = $row['MIS4'];
+
+    
+    $name1 = getStudentName($mis1);
+    $name2 = getStudentName($mis2);
+    $name3 = getStudentName($mis3);
+    $name4 = getStudentName($mis4);
+
+    $branch1 = getStudentBranch($mis1);
+    $branch2 = getStudentBranch($mis2);
+    $branch3 = getStudentBranch($mis3);
+    $branch4 = getStudentBranch($mis4);
+
+    $cgpa1 = getStudentCGPA($mis1);
+    $cgpa2 = getStudentCGPA($mis2);
+    $cgpa3 = getStudentCGPA($mis3);
+    $cgpa4 = getStudentCGPA($mis4);
+
+    $backlogs1 = getStudentBacklogs($mis1);
+    $backlogs2 = getStudentBacklogs($mis2);
+    $backlogs3 = getStudentBacklogs($mis3);
+    $backlogs4 = getStudentBacklogs($mis4);
+
+    echo '<tr>';
+    echo '<td>'.$room_no.'</td>';
+    echo '<td>'.$mis1.'<br>'.$name1.'<br>Branch : '.$branch1.'<br>CGPA : '.$cgpa1.'<br> Backlogs : '.$backlogs1.'</td>';
+    echo '<td>'.$mis2.'<br>'.$name2.'<br>Branch : '.$branch2.'<br>CGPA : '.$cgpa2.'<br> Backlogs : '.$backlogs2.'</td>';
+    echo '<td>'.$mis3.'<br>'.$name3.'<br>Branch : '.$branch3.'<br>CGPA : '.$cgpa3.'<br> Backlogs : '.$backlogs3.'</td>';
+    echo '<td>'.$mis4.'<br>'.$name4.'<br>Branch : '.$branch4.'<br>CGPA : '.$cgpa4.'<br> Backlogs : '.$backlogs4.'</td>';
+
+    
+    echo '</tr>';
+    
+    echo '</tbody>';
+    echo '</table>';
+}
+else{
+    //room not alloted to him
+    echo "<script type='text/javascript'>alert('You are not alloted to any room.'); window.location.href='home.php?error=roomnotalloted';</script>";
+
+}
+
+    
+	
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!-- footer -->
 <footer class="py-5">

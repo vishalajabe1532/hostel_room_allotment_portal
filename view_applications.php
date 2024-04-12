@@ -43,47 +43,60 @@
 
 <!-- banner -->
 <div class="inner-page-banner" id="home"> 	   
-	<!--Header-->
-	<header>
-		<div class="container agile-banner_nav">
-			<nav class="navbar navbar-expand-lg navbar-light bg-light">
-				
-				<h1><a class="navbar-brand" href="home_manager.php">COEP <span class="display"></span></a></h1>
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-				</button>
 
-				<div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-					<ul class="navbar-nav ml-auto">
-						<li class="nav-item">
-							<a class="nav-link" href="home_manager.php">Home <span class="sr-only">(current)</span></a>
-						</li>
-						
-						<li class="nav-item">
-						<a class="nav-link" href="allocate_room.php">Allocate Room</a>
+<!--Header-->
+<header>
+	<div class="container agile-banner_nav">
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+			<h1><a class="navbar-brand" href="home_manager.php">COEP <span class="display"></span></a></h1>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item active">
+						<a class="nav-link" href="home_manager.php">Home <span class="sr-only">(current)</span></a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="message_hostel_manager.php">Messages Received</a>
-					</li>
+
+
 					<li class="dropdown nav-item">
-						<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Rooms
+						<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Operations
 							<b class="caret"></b>
 						</a>
 						<ul class="dropdown-menu agile_short_dropdown">
+							
 							<li>
-								<a href="allocated_rooms.php">Allocated Rooms</a>
+								<a href="allocate_hostel.php">Allocate Hostel</a>
+							</li>
+							
+							
+							<!-- float application forms -->
+							<li>
+								<a href="float_application_forms.php">Float forms</a>
 							</li>
 							<li>
-								<a href="empty_rooms.php">Empty Rooms</a>
+								<a href="allocate_rooms.php">Allocate Rooms</a>
 							</li>
 							<li>
-								<a href="vacate_rooms.php">Vacate Rooms</a>
+								<a href="view_applications.php">View Applications</a>
 							</li>
+							<li>
+								<a href="hostel_allotment_list.php">View Hostel Allotment List</a>
+							</li>
+							<li>
+								<a href="allocated_rooms.php">View Allocated Rooms</a>
+							</li>
+
+
 						</ul>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="contact_manager.php">Contact</a>
-					</li>
+
+
+
+
+					
+					
 					<li class="dropdown nav-item">
 						<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"><?php echo $_SESSION['username']; ?>
 							<b class="caret"></b>
@@ -97,12 +110,15 @@
 							</li>
 						</ul>
 					</li>
-					</ul>
-				</div>
-			</nav>
-		</div>
-	</header>
-	<!--Header-->
+				</ul>
+			</div>
+
+		</nav>
+	</div>
+</header>
+<!--Header-->
+
+
 </div>
 <!-- //banner --> 
 <br><br><br>
@@ -207,26 +223,7 @@ while($row = mysqli_fetch_assoc($result)){
 <!-- <footer class="py-5">
 	<div class="container py-md-5">
 		<div class="footer-logo mb-5 text-center">
-			<a class="navbar-brand" href="https://www.coeptech.ac.in/" target="_blank">COEP TECH</a>
-		</div>
-		<div class="footer-grid">
-			<div class="list-footer">
-				<ul class="footer-nav text-center">
-					<li>
-						<a href="home_manager.php">Home</a>
-					</li>
-					<li>
-						<a href="allocate_room.php">Allocate</a>
-					</li>
-					<li>
-						<a href="contact_manager.php">Contact</a>
-					</li>
-					<li>
-						<a href="admin/manager_profile.php">Profile</a>
-					</li>
-				</ul>
-			</div>
-			
+			<a class="navbar-brand"  href="https://www.coeptech.ac.in/" target="_blank">COEP TECH</a>
 		</div>
 	</div>
 </footer> -->

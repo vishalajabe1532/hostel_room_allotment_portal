@@ -51,50 +51,73 @@
   
   <!-- banner -->
   <div class="inner-page-banner" id="home"> 	   
-        <!--Header-->
-        <header>
-            <div class="container agile-banner_nav">
-                <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    
-                    <h1><a class="navbar-brand" href="home.php">COEP <span class="display"></span></a></h1>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                    </button>
 
-                    <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-                        <ul class="navbar-nav ml-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="home.php">Home <span class="sr-only">(current)</span></a>
-                            </li>
-                            <li class="nav-item active">
-                                <a class="nav-link" href="services.php">Hostels</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="contact.php">Contact</a>
-                            </li>
-                            <li class="nav-item">
-                            <a class="nav-link" href="message_user.php">Message Received</a>
-                        </li>
-                            <li class="dropdown nav-item">
-                            <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"><?php echo $_SESSION['mis']; ?>
-                                <b class="caret"></b>
-                            </a>
-                            <ul class="dropdown-menu agile_short_dropdown">
-                                <li>
-                                    <a href="profile.php">My Profile</a>
-                                </li>
-                                <li>
-                                    <a href="includes/logout.inc.php">Logout</a>
-                                </li>
-                            </ul>
-                        </li>
-                        </ul>
-                    </div>
-                
-                </nav>
-            </div>
-        </header>
-        <!--Header-->
+<!--Header-->
+<header>
+	<div class="container agile-banner_nav">
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+			<h1><a class="navbar-brand" href="home.php">COEP <span class="display"></span></a></h1>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item active">
+						<a class="nav-link" href="home.php">Home <span class="sr-only">(current)</span></a>
+					</li>
+
+					
+					<li class="dropdown nav-item">
+						<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Operations
+							<b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu agile_short_dropdown">
+							
+							<li>
+								<a  href="application_form.php">Application Form</a>
+							</li>
+							
+							<li>
+								<a  href="fill_roommates.php">Fill Roommates</a>
+							</li>
+							
+							<li>
+								<a href="hostel_allotment_list_for_students.php">View Hostel Allotment List</a>
+							</li>
+
+							<li>
+								<a href="view_my_room.php">View My Room</a>
+							</li>
+
+
+						</ul>
+					</li>
+					
+					
+
+					<li class="dropdown nav-item">
+						<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"><?php echo $_SESSION['mis']; ?>
+							<b class="caret"></b>
+						</a>
+						<ul class="dropdown-menu agile_short_dropdown">
+							<li>
+								<a href="profile.php">My Profile</a>
+							</li>
+							<li>
+								<a href="includes/logout.inc.php">Logout</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+
+		</nav>
+	</div>
+</header>
+<!--Header-->
+
   </div>
   <!-- //banner --> 
   <br><br><br>
@@ -180,36 +203,15 @@
   <br>
   <br>
   
-  <!-- footer -->
-  <footer class="py-5">
-      <div class="container py-md-5">
-          <div class="footer-logo mb-5 text-center">
-              <a class="navbar-brand"  href="https://www.coeptech.ac.in/" target="_blank" >COEP TECH</a>
-          </div>
-          <div class="footer-grid">
-              
-              <div class="list-footer">
-                  <ul class="footer-nav text-center">
-                      <li>
-                          <a href="home_manager.php">Home</a>
-                      </li>
-                      <li>
-                          <a href="allocate_room.php">Allocate</a>
-                      </li>
-                      
-                      <li>
-                          <a href="contact_manager.php">Contact</a>
-                      </li>
-                      <li>
-                          <a href="admin/manager_profile.php">Profile</a>
-                      </li>
-                  </ul>
-              </div>
-              
-          </div>
-      </div>
-  </footer>
-  <!-- footer -->
+<!-- footer -->
+<footer class="py-5">
+	<div class="container py-md-5">
+		<div class="footer-logo mb-5 text-center">
+			<a class="navbar-brand" href="https://www.coeptech.ac.in/" target="_blank">COEP TECH</a>
+		</div>
+	</div>
+</footer>
+<!-- footer -->
   
   <!-- js-scripts -->
   

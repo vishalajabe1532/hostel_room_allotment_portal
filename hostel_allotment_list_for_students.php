@@ -110,42 +110,129 @@
 </div>
 <!-- //banner --> 
 
-<section class="contact py-5">
-	<div class="container">
-		<h2 class="heading text-capitalize mb-sm-5 mb-4"> Application Form </h2>
-			<div class="mail_grid_w3l">
-				<form action="includes/application_form.inc.php?" method="POST">
-					<div class="row">
-						<div class="col-md-6 contact_left_grid" data-aos="fade-right">
-							<div class="contact-fields-w3ls">
-								<input type="text" name="name" placeholder="Name" value="<?php echo $_SESSION['name']; ?>" required="" readonly>
-							</div>
-							<div class="contact-fields-w3ls">
-								<input type="text" name="mis_no" placeholder="MIS" value="<?php echo $_SESSION['mis']?>" required="" readonly>
-							</div>
-							<div class="contact-fields-w3ls">
-								<input type="text" name="year_of_study" placeholder="Year of study" value="<?php echo $_SESSION['year_of_study']?>" required="" readonly>
-							</div>
-							<div class="contact-fields-w3ls">
-								<input type="text" name="cgpa" placeholder="CGPA"  required="" >
-							</div>
-							<div class="contact-fields-w3ls">
-								<input type="text" name="backlogs" placeholder="Number of Backlogs"  required="" >
-							</div>
-							<div class="contact-fields-w3ls">
-								<input type="password" name="pwd" placeholder="Password" required="">
-							</div>
-						</div>
-						
-						<input type="submit" name="submit" value="Click to Apply">
-						
-					</div>
 
-				</form>
-			</div>
-		
-	</div>
-</section>
+
+
+
+
+
+
+
+
+<?php
+// display_branch_student($branches,$branch_list){
+	
+// }
+
+error_reporting(E_ALL & ~E_NOTICE);
+ini_set('display_errors', 0);
+
+function getStudentName($mis){
+	require 'config.inc.php';
+    $sql = "SELECT `Name` FROM Students WHERE MIS='$mis'";
+    $result = mysqli_query($conn, $sql);
+    // ysqli_connect
+    if($row = mysqli_fetch_assoc($result)){
+        return $row['Name'];
+
+    }
+}
+
+
+require 'includes/config.inc.php';
+
+
+
+
+//every thing fine
+$branch_list = array('civil','comp','elec','entc','instru','mech','meta','prod');
+
+
+
+
+
+
+
+echo '<div class="container ">';
+echo '<h3 class="heading text-capitalize " >Hostel Allotment List :</h3>';
+for ($i = 0; $i < 8; $i++) { 
+    echo '<h3 class="heading text-capitalize " >'.$branch_list[$i].' :</h3>';
+    echo '<table class="table table-hover">';
+    echo '<thead>';
+    echo '<tr>';
+    echo '<th>MIS</th>';
+    echo '<th>Student Name</th>';
+    echo '<th>Branch</th>';
+    echo '<th>CGPA</th>';
+    echo '<th>Backlogs</th>';
+    echo '<th>Category</th>';
+    echo '</tr>';
+    echo '</thead>';
+    echo '<tbody>';
+
+    $br = $branch_list[$i];
+
+
+    $query =  "SELECT * FROM Applications A JOIN Students S ON A.MIS=S.MIS WHERE A.IsApproved=1 AND S.Branch='$br' ORDER BY A.CGPA DESC";
+    $result = mysqli_query($conn,$query);
+
+
+    while($row = mysqli_fetch_assoc($result)){
+        $mis = $row['MIS'];
+        $name = $row['Name'];
+        $branch = $row['Branch'];
+        $cgpa = $row['CGPA'];
+        $backlogs = $row['Backlogs'];
+        $category = $row['Category'];
+        echo '<tr>';
+        echo '<td>'.$mis.'</td>';
+        echo '<td>'.$name.'</td>';
+        echo '<td>'.$branch.'</td>';
+        echo '<td>'.$cgpa.'</td>';
+        echo '<td>'.$backlogs.'</td>';
+        echo '<td>'.$category.'</td>';
+        echo '</tr>';
+        
+    }
+    echo '</tbody>';
+    echo '</table>';
+}
+// // echo '<input type="button" class="btn btn-primary" value="Notify Students about Allotment" name="notify_students_allotment"></input>';
+// echo '<form action="allocate_hostel.php" method="POST">';
+// 	echo '<input type="submit" class="btn btn-primary" value="Notify Students about Allotment" name="notify_students_allotment">';
+// echo '</form>';
+// Add a form for the button
+
+
+
+
+
+
+
+
+
+	
+?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!-- footer -->
 <footer class="py-5">
