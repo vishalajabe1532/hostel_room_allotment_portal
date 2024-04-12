@@ -80,6 +80,12 @@
 							<li>
 								<a href="allocate_rooms.php">Allocate Rooms</a>
 							</li>
+							<li>
+								<a href="allocate_rooms.php">View Applications</a>
+							</li>
+							<li>
+								<a href="allocated_rooms.php">View Allocated Rooms Rooms</a>
+							</li>
 
 
 						</ul>
@@ -88,33 +94,8 @@
 
 
 
-					<!-- <li class="nav-item">
-						<a class="nav-link" href="allocate_room.php">Allocate Rooms</a>
-					</li> -->
-					<li class="nav-item">
-						<a class="nav-link" href="message_hostel_manager.php">Messages Received</a>
-					</li>
-					<li class="dropdown nav-item">
-						<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Rooms
-							<b class="caret"></b>
-						</a>
-						<ul class="dropdown-menu agile_short_dropdown">
-							<li>
-								<a href="allocated_rooms.php">Allocated Rooms</a>
-							</li>
-
-
-							<li>
-								<a href="empty_rooms.php">Empty Rooms</a>
-							</li>
-							<li>
-								<a href="vacate_rooms.php">Vacate Rooms</a>
-							</li>
-						</ul>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="contact_manager.php">Contact</a>
-					</li>
+					
+					
 					<li class="dropdown nav-item">
 						<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"><?php echo $_SESSION['username']; ?>
 							<b class="caret"></b>

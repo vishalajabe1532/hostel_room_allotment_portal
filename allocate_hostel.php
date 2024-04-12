@@ -151,7 +151,7 @@
 						<input type="password" name="pwd" placeholder="Password" required="">
 					</div>
                     
-                    <input type="submit" value="Submit and Allocate Rooms" name="submit_and_allocate"></input>
+                    <input type="submit" value="Submit and Allocate Hostel" name="submit_and_allocate"></input>
 				</form>
 			</div>
 	</div>

@@ -1,103 +1,166 @@
 
+<!-- allocation code -->
+
+
+
+
 <?php
-   //echo 'Hello';
-   
-if(isset($_POST['submit_preferences'])){
 
-    require 'config.inc.php';
-    $mis= $_POST['mis_no'];
+if(isset($_POST['submit_and_allocate'])){
+	require 'config.inc.php';
+	
+    $username= $_POST['username'];
     $password = $_POST['pwd'];
-    $preferences = array();
-    for ($i=0; $i < 50; $i++) { 
-        $p = "pref".($i+1);
-        $preferences[] = $_POST[$p];
-    }
-    
-    // $backlogs = $_POST['backlogs'];
-    
-    
 
+    
+    
+    
+    
+	
     /*echo "<script type='text/javascript'>alert('<?php echo $mis?>')</script>";*/
-    $query_imp = "SELECT * FROM Students WHERE MIS = '$mis'";
+    $query_imp = "SELECT * FROM admin_hostel_manager WHERE Username = '$username'";
     $result_imp = mysqli_query($conn,$query_imp);
     $row_imp = mysqli_fetch_assoc($result_imp);
     /*echo "<script type='text/javascript'>alert('<?php echo $room_id ?>')</script>";*/
     if($row_imp){
-        if($row_imp['Password'] == $password){
-            //correct password login succesfull
-            
-            //check if they have filled their roommates
-            $query = "SELECT * FROM Preferencesforrooms WHERE MIS1 = '$mis'";
-            $result = mysqli_query($conn,$query);
-            if($result){
-                //they have filled their roommates
-                // echo "<script type='text/javascript'>alert('Everything is fine.'); window.location.href='../fill_roommates.php?error=incorrectpassword';</script>";
+		if($row_imp['Password'] == $password){
+			//every thing fine
 
-                //continue with allotment
-                $queries = array();
-                $results=array();
-                $rows=array();
-                $branches = array('civil','comp','elec','entc','instru','mech','meta','prod');
+            //continue with allotment
+            $queries = array();
+            $results=array();
+            $rows=array();
+            $branches = array('civil','comp','elec','entc','instru','mech','meta','prod');
 
-                for ($i=0; $i < 8; $i++) { 
-                    $br = $branches[$i];
-                    $queries[] = "SELECT A.*, S.Branch,S.Name FROM Applications A JOIN Students S ON A.MIS=S.MIS WHERE A.IsApproved=1 AND S.Branch='$br' ORDER BY A.CGPA DESC";
-                    $results[] = mysqli_query($conn,$queries[$i]);
-                    $rows[] = mysqli_fetch_assoc($results[$i]);
+            for ($i=0; $i < 8; $i++) { 
+                $br = $branches[$i];
+                $queries[] = "SELECT A.MIS FROM Applications A JOIN Students S ON A.MIS=S.MIS WHERE A.IsApproved=1 AND S.Branch='$br' ORDER BY A.CGPA DESC";
+                $results[] = mysqli_query($conn,$queries[$i]);
+                $rowOfBranch = array();
+                while($temp_row = mysqli_fetch_assoc($results[$i])){
+                    //insert each row into array
+                    $rowOfBranch[] = $temp_row;
                 }
+                //insert that array into bigger array
+                $rows[] = $rowOfBranch;
+            }
 
 
-                while(true){
-                    $remaining = false;
-                    for ($i=0; $i < 8; $i++) { 
-                        
-                        if($rows[$i]){
-                            $remaining = true;
+            $remaining = true;
+            for($i=0; $i < 200; $i++){
+                $remaining = false;
+                for ($j=0; $j < 8; $j++) { 
+                    
+                    if($i < count($rows[$j])){       // maybe problem is here
+                        $remaining = true;
 
+
+                        $student_mis = $rows[$j][$i]['MIS'];
+                        $query  = "SELECT * FROM Preferencesforrooms WHERE MIS1 = '$student_mis'";
+                        $result = mysqli_query($conn,$query);
+                        if(mysqli_num_rows($result) > 0){
+                            //student has filled roommates
                             
-                            // operation to allot
-                            $branch = $branches[$i];
+                            //now check if he has filled preferences
+                            $query  = "SELECT * FROM Preferences WHERE MIS1 = '$student_mis'";
+                            $result = mysqli_query($conn,$query);
+                            if(mysqli_num_rows($result) > 0){
+                                //student has filled preferences
 
-                            //check if that student is not in any room
-                            // look into this later
-    
-                            
+                                //now allocate him a room
+                                $row = mysqli_fetch_assoc($result);
+                                
+                                //load preferences into array
+                                $preferences = array();
+                                for ($k=0; $k < 50; $k++) { 
+                                    $temp = "pref".($k+1);
+                                    $preferences[] = $row[$temp];
+
+                                }
+
+                                for ($k=0; $k < 50; $k++) { 
+                                    $room_num = $preferences[$k];
+
+                                    //check if that room is free
+                                    $q = "SELECT * FROM Rooms WHERE room_no = '$room_num'";
+                                    $res = mysqli_query($conn,$q);
+                                    $rw = mysqli_fetch_assoc($res);
+
+                                    if($rw['Is_alloted'] == 0){
+                                        //room is free allot to current student
+
+                                        //fetch other students details
+
+                                        $q = "SELECT * FROM Preferencesforrooms WHERE MIS1 = '$student_mis'";
+                                        $res = mysqli_query($conn,$q);
+                                        $rw = mysqli_fetch_assoc($res);
+                                        
+                                        
+                                        //insert students mis in rooms table
+                                        $student_mis2 = $rw['MIS2'];
+                                        $student_mis3 = $rw['MIS3'];
+                                        $student_mis4 = $rw['MIS4'];
+                                        $q = "UPDATE Rooms SET MIS1='$student_mis', MIS2='$student_mis2' , MIS3='$student_mis3' , MIS4='$student_mis4', Is_alloted=1 WHERE room_no = '$room_num'";
+                                        $res = mysqli_query($conn,$q);
+
+                                        if($res){
+                                            //if added successfully break for current student
+                                            break;
+                                        }
+
+
+
+                                        //after alloting this room break
+                                    }
+                                    //else continue to next preference
+
+
+
+                                }
+
+
+
+                            }
+                            else{
+                                //student has not filled preferences
+                            }
+
                         }
-                    }
-                    if($remaining == false){
-                        // allotment completed
-                        break;
+                        else{
+                            //student has not filled roommates
+                        }
+                        
+                        // operation to allot
+                        $branch = $branches[$i];
 
+                        //check if that student is not in any room
+                        // look into this later
+
+                        
                     }
+                }
+                if($remaining == false){
+                    // allotment completed
+                    echo "<script type='text/javascript'>alert('Allotment Completed'); window.location.href='../allocated_rooms.php?allocation=success';</script>";
+                    break;
 
                 }
 
-
-
-
-
-
             }
-            else{
-                //  they have not filled their roommates
-                echo "<script type='text/javascript'>alert('You have not selected your roommates. Please select roommates first.'); window.location.href='../fill_roommates.php?error=incorrectpassword';</script>";
-            }
-
-            
-
 
 
         }
         else{
             // header("Location: ../application_form.php?error=incorrectpassword");
-            echo "<script type='text/javascript'>alert('Incorrect Password!!'); window.location.href='../fill_roommates.php?error=incorrectpassword';</script>";
+            echo "<script type='text/javascript'>alert('Incorrect Password!!'); window.location.href='../allocate_rooms.php?error=incorrectpassword';</script>";
+          
         }
     }
-    else{
-        // header("Location: ../application_form.php?error=sqlerror");
-        echo "<script type='text/javascript'>alert('Some error occured for checking password'); window.location.href='../fill_roommates.php?error=sqlerror';</script>";   
-    }
-
-
+	else{
+			echo "<script type='text/javascript'>alert('Some error occured for checking password'); window.location.href='../allocate_rooms.php?error=sqlerror';</script>";   
+		
+	}
 }
+	
 ?>
+	

@@ -107,123 +107,101 @@
 <!-- //banner --> 
 <br><br><br>
 
-<section class="contact py-5">
-	<div class="container">
-			<div class="mail_grid_w3l">
-				<form action="allocated_rooms.php" method="post">
-					<div class="row">
-					        <div class="col-md-9"> 
-							<input type="text" placeholder="Search by Roll Number" name="search_box">
-							</div>
-							<div class="col-md-3">
-							<input type="submit" value="Search" name="search"></input>
-							</div>
-					</div>
-				</form>
-			</div>
-	</div>
-</section>
-<?php
-   if (isset($_POST['search'])) {
-   	   $search_box = $_POST['search_box'];
-   	   /*echo "<script type='text/javascript'>alert('<?php echo $search_box; ?>')</script>";*/
-   	   $hostel_id = $_SESSION['hostel_id'];
-   	   $query_search = "SELECT * FROM Students WHERE MIS like '$search_box%' and Hostel_id = '$hostel_id'";
-   	   $result_search = mysqli_query($conn,$query_search);
 
-   	   //select the hostel name from hostel table
-       $query6 = "SELECT * FROM Hostel WHERE Hostel_id = '$hostel_id'";
-       $result6 = mysqli_query($conn,$query6);
-       $row6 = mysqli_fetch_assoc($result6);
-       $hostel_name = $row6['Hostel_name'];
-   	   ?>
-   	   <div class="container">
-   	   <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>Student Name</th>
-        <th>Student ID</th>
-        <th>Contact Number</th> 
-        <th>Hostel</th>
-        <th>Room Number</th>
-      </tr>
-    </thead>
-    <tbody>
-    <?php
-   	   if(mysqli_num_rows($result_search)==0){
-   	   	  echo '<tr><td colspan="4">No Rows Returned</td></tr>';
-   	   }
-   	   else{
-   	   	  while($row_search = mysqli_fetch_assoc($result_search)){
-      		//get the name of the student to display
-            $room_id = $row_search['Room_id']; 
-            $query7 = "SELECT * FROM Room WHERE Room_id = '$room_id'";
-            $result7 = mysqli_query($conn,$query7);
-            $row7 = mysqli_fetch_assoc($result7);
-            $room_no = $row7['Room_No'];
-            //student name
-            $student_name = $row_search['Fname']." ".$row_search['Lname'];
-            
-      		echo "<tr><td>{$student_name}</td><td>{$row_search['MIS']}</td><td>{$row_search['Mob']}</td><td>{$hostel_name}</td><td>{$room_no}</td></tr>\n";
-   	   }
-   }
-   ?>
-   </tbody>
-  </table>
-</div>
+
+
 <?php
+// display_branch_student($branches,$branch_list){
+	
+// }
+
+error_reporting(E_ALL & ~E_NOTICE);
+ini_set('display_errors', 0);
+
+function getStudentName($mis){
+	require 'includes/config.inc.php';
+    $sql = "SELECT `Name` FROM Students WHERE MIS='$mis'";
+    $result = mysqli_query($conn, $sql);
+    // ysqli_connect
+    if($row = mysqli_fetch_assoc($result)){
+        return $row['Name'];
+
+    }
 }
-  ?>
 
 
-<div class="container">
-<h2 class="heading text-capitalize mb-sm-5 mb-4"> Rooms Allotted </h2>
-<?php
-   $hostel_id = $_SESSION['hostel_id'];
-   $query1 = "SELECT * FROM Students WHere Hostel_id = '$hostel_id'";
-   $result1 = mysqli_query($conn,$query1);
-   //select the hostel name from hostel table
-   $query6 = "SELECT * FROM Hostel WHERE Hostel_id = '$hostel_id'";
-   $result6 = mysqli_query($conn,$query6);
-   $row6 = mysqli_fetch_assoc($result6);
-   $hostel_name = $row6['Hostel_name'];
+require 'includes/config.inc.php';
 
 
+
+
+
+
+//every thing fine
+$branch_list = array('civil','comp','elec','entc','instru','mech','meta','prod');
+
+
+
+
+
+
+
+
+
+
+echo '<div class="container ">';
+echo '<h3 class="heading text-capitalize " >Allocated Rooms with thier Members :</h3>';
+$query = "SELECT * FROM Rooms";
+$result = mysqli_query($conn,$query);
+
+echo '<table class="table table-hover">';
+echo '<thead>';
+echo '<tr>';
+echo '<th>Room No.</th>';
+echo '<th>Member 1</th>';
+echo '<th>Member 2</th>';
+echo '<th>Member 3</th>';
+echo '<th>Member 4</th>';
+
+echo '</tr>';
+echo '</thead>';
+echo '<tbody>';
+
+
+while($row = mysqli_fetch_assoc($result)){
+	$room_no = $row['room_no'];
+	$member1 = $row['MIS1'];
+	$member2 = $row['MIS2'];
+	$member3 = $row['MIS3'];
+	$member4 = $row['MIS4'];
+	$membername1 = getStudentName($member1);
+	$membername2 = getStudentName($member2);
+	$membername3 = getStudentName($member3);
+	$membername4 = getStudentName($member4);
+	echo '<tr>';
+	echo '<td>'.$room_no.'</td>';
+	echo '<td>'.$member1.'<br>'.$membername1.'</td>';
+	echo '<td>'.$member2.'<br>'.$membername2.'</td>';
+	echo '<td>'.$member3.'<br>'.$membername3.'</td>';
+	echo '<td>'.$member4.'<br>'.$membername4.'</td>';
+
+	
+	echo '</tr>';
+}
+
+
+
+
+
+
+	
 ?>
-        
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th>Student Name</th>
-        <th>Student ID</th>
-        <th>Contact Number</th> 
-        <th>Hostel</th>
-        <th>Room Number</th>
-      </tr>
-    </thead>
-    <tbody>
-    <?php
-      if(mysqli_num_rows($result1)==0){
-         echo '<tr><td colspan="4">No Rows Returned</td></tr>';
-      }
-      else{
-      	while($row1 = mysqli_fetch_assoc($result1)){
-      		//get the room_no of the student from room_id in room table
-            $room_id = $row1['Room_id']; 
-            $query7 = "SELECT * FROM Room WHERE Room_id = '$room_id'";
-            $result7 = mysqli_query($conn,$query7);
-            $row7 = mysqli_fetch_assoc($result7);
-            $room_no = $row7['Room_No'];
-            //student name
-            $student_name = $row1['Fname']." ".$row1['Lname'];
-            
-      		echo "<tr><td>{$student_name}</td><td>{$row1['MIS']}</td><td>{$row1['Mob']}</td><td>{$hostel_name}</td><td>{$room_no}</td></tr>\n";
-      	}
-      }
-    ?>
-    </tbody>
-  </table>
-</div>
+
+
+
+
+
+
 <br>
 <br>
 <br>
