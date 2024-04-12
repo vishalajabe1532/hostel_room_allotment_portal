@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS `Preferences`;
 DROP TABLE IF EXISTS `Applications`;
-DROP TABLE IF EXISTS `PreferencesForRooms`;
+DROP TABLE IF EXISTS `Roommates`;
 DROP TABLE IF EXISTS `Rooms`;
 DROP TABLE IF EXISTS `Students`;
 DROP TABLE IF EXISTS `Mails`;
@@ -20,6 +20,9 @@ DROP TABLE IF EXISTS `Flags`;
 CREATE TABLE `Flags` (
   `ID` int(10) NOT NULL AUTO_INCREMENT,
   `Application_form_open` tinyint(1) DEFAULT 0,
+  `Application_form_validity` int(10) DEFAULT 0,
+  `Hostel_allocation_done` tinyint(1) DEFAULT 0,
+  `Room_allocation_done` tinyint(1) DEFAULT 0,
   PRIMARY KEY (`ID`)
 );
 
@@ -87,12 +90,15 @@ CREATE TABLE `Rooms` (
 
 
 
--- Table: PreferencesForRooms
-CREATE TABLE `PreferencesForRooms` (
+-- Table: Roommates
+CREATE TABLE `Roommates` (
   `MIS1` varchar(255) NOT NULL,
   `MIS2` varchar(255) NOT NULL,
   `MIS3` varchar(255) NOT NULL,
   `MIS4` varchar(255) NOT NULL,
+  `Status2` ENUM('neutral', 'agree','disagree') NOT NULL DEFAULT 'neutral',
+  `Status3` ENUM('neutral', 'agree','disagree') NOT NULL DEFAULT 'neutral',
+  `Status4` ENUM('neutral', 'agree','disagree') NOT NULL DEFAULT 'neutral',
   PRIMARY KEY (`MIS1`),
   FOREIGN KEY (`MIS1`) REFERENCES `Students` (`MIS`) ON DELETE CASCADE,
   FOREIGN KEY (`MIS2`) REFERENCES `Students` (`MIS`) ON DELETE CASCADE,
@@ -105,7 +111,9 @@ CREATE TABLE `Applications` (
   `MIS` varchar(255) NOT NULL,
   `CGPA` decimal(5,2) NOT NULL,
   `Backlogs` int(10) NOT NULL,
-  `IsApproved` tinyint(1) DEFAULT NULL,
+  `IsApproved` tinyint(1) DEFAULT 0,
+  `IsAllocated` tinyint(1) DEFAULT 0,
+  `Roommates_selected` tinyint(1) DEFAULT 0,
   PRIMARY KEY (`MIS`),
   FOREIGN KEY (`MIS`) REFERENCES `Students` (`MIS`) ON DELETE CASCADE
 );
@@ -168,7 +176,7 @@ CREATE TABLE `Preferences` (
   `pref49` int(3) DEFAULT NULL,
   `pref50` int(3) DEFAULT NULL,
   PRIMARY KEY (`MIS1`),
-  FOREIGN KEY (`MIS1`) REFERENCES `PreferencesForRooms` (`MIS1`) ON DELETE CASCADE
+  FOREIGN KEY (`MIS1`) REFERENCES `Roommates` (`MIS1`) ON DELETE CASCADE
 );
 
 
@@ -219,17 +227,17 @@ IGNORE 0 ROWS -- ignore the first line as it doesn't contain headers
 UNLOCK TABLES;
 
 -- Lock Students table
-LOCK TABLES Students WRITE;
+-- LOCK TABLES Students WRITE;
 
--- Add data to Students table
-INSERT INTO Students (MIS, Name, Mob, Branch, Year_of_study, Password, Category) VALUES
-('112103007', 'Vishal Ajabe', '7620873431', 'Computer', '3', 'vishal', 'EWS'),
-('112103003', 'Anuj Abhang', '7620873431', 'Computer', '3', 'anuj', 'Open'),
-('112103071', 'Sanchit Khemnar', '7620873431', 'Computer', '3', 'sanchit', 'OBC'),
-('112103041', 'Vedant Dudhale', '7620873431', 'Computer', '3', 'vedant', 'Open');
+-- -- Add data to Students table
+-- INSERT INTO Students (MIS, Name, Mob, Branch, Year_of_study, Password, Category) VALUES
+-- ('112103007', 'Vishal Ajabe', '7620873431', 'Computer', '3', 'vishal', 'EWS'),
+-- ('112103003', 'Anuj Abhang', '7620873431', 'Computer', '3', 'anuj', 'Open'),
+-- ('112103071', 'Sanchit Khemnar', '7620873431', 'Computer', '3', 'sanchit', 'OBC'),
+-- ('112103041', 'Vedant Dudhale', '7620873431', 'Computer', '3', 'vedant', 'Open');
 
--- Release lock on Students table
-UNLOCK TABLES;
+-- -- Release lock on Students table
+-- UNLOCK TABLES;
 
 
 
@@ -294,37 +302,37 @@ INSERT INTO Rooms (room_no, Is_alloted, MIS1, MIS2,MIS3,MIS4) VALUES
 UNLOCK TABLES;
 
 
-LOCK TABLES PreferencesForRooms WRITE;
+-- LOCK TABLES Roommates WRITE;
 
--- Add data to PreferencesForRooms table
-INSERT INTO PreferencesForRooms (MIS1, MIS2, MIS3, MIS4) VALUES
-('112103007', '112103003', '112103071', '112103041');
+-- -- Add data to Roommates table
+-- INSERT INTO Roommates (MIS1, MIS2, MIS3, MIS4) VALUES
+-- ('112103007', '112103003', '112103071', '112103041');
 
--- Release lock on PreferencesForRooms table
-UNLOCK TABLES;
+-- -- Release lock on Roommates table
+-- UNLOCK TABLES;
 
 
 -- Lock Applications table
-LOCK TABLES Applications WRITE;
+-- LOCK TABLES Applications WRITE;
 
--- Add data to Applications table
-INSERT INTO Applications (MIS, CGPA, Backlogs, IsApproved) VALUES
-('112103007', 8.5, 0, 0),
-('112103003', 6.5, 0, 0),
-('112103071', 8.1, 0, 0),
-('112103041', 7.8, 1, 0);
+-- -- Add data to Applications table
+-- INSERT INTO Applications (MIS, CGPA, Backlogs, IsAllocated) VALUES
+-- ('112103007', 8.5, 0, 0),
+-- ('112103003', 6.5, 0, 0),
+-- ('112103071', 8.1, 0, 0),
+-- ('112103041', 7.8, 1, 0);
 
--- Release lock on Applications table
-UNLOCK TABLES;
+-- -- Release lock on Applications table
+-- UNLOCK TABLES;
 
--- Lock PreferencesForRooms table
+-- Lock Roommates table
 
 -- Lock Preferences table
-LOCK TABLES Preferences WRITE;
+-- LOCK TABLES Preferences WRITE;
 
--- Add data to Preferences table
-INSERT INTO Preferences (MIS1, pref1, pref2,pref3,pref4) VALUES
-('112103007', 21, 45,54,65);
+-- -- Add data to Preferences table
+-- INSERT INTO Preferences (MIS1, pref1, pref2,pref3,pref4) VALUES
+-- ('112103007', 21, 45,54,65);
 
--- Release lock on Preferences table
-UNLOCK TABLES;
+-- -- Release lock on Preferences table
+-- UNLOCK TABLES;

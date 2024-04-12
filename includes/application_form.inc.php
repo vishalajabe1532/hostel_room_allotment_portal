@@ -28,7 +28,7 @@ if(isset($_POST['submit'])){
             if(mysqli_num_rows($result_imp2)==0){
                 //not yet applied
                 // $_SESSION['cgpa']=$cgpa;
-                $query = "INSERT INTO Applications (MIS,cgpa,Backlogs,IsApproved) VALUES ('$mis','$cgpa','$backlogs',0)";
+                $query = "INSERT INTO Applications (MIS,cgpa,Backlogs,IsAllocated) VALUES ('$mis','$cgpa','$backlogs',0)";
                 $result = mysqli_query($conn,$query);
                 if($result){
                     //application recorded succesfully

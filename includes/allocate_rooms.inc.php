@@ -36,7 +36,7 @@ if(isset($_POST['submit_and_allocate'])){
 
             for ($i=0; $i < 8; $i++) { 
                 $br = $branches[$i];
-                $queries[] = "SELECT A.MIS FROM Applications A JOIN Students S ON A.MIS=S.MIS WHERE A.IsApproved=1 AND S.Branch='$br' ORDER BY A.CGPA DESC";
+                $queries[] = "SELECT A.MIS FROM Applications A JOIN Students S ON A.MIS=S.MIS WHERE A.IsAllocated=1 AND S.Branch='$br' ORDER BY A.CGPA DESC";
                 $results[] = mysqli_query($conn,$queries[$i]);
                 $rowOfBranch = array();
                 while($temp_row = mysqli_fetch_assoc($results[$i])){
@@ -68,7 +68,7 @@ if(isset($_POST['submit_and_allocate'])){
 
 
 
-                        $query  = "SELECT * FROM Preferencesforrooms WHERE MIS1 = '$student_mis'";
+                        $query  = "SELECT * FROM Roommates WHERE MIS1 = '$student_mis'";
                         $result = mysqli_query($conn,$query);
                         if(mysqli_num_rows($result) > 0){
                             //student has filled roommates
@@ -103,7 +103,7 @@ if(isset($_POST['submit_and_allocate'])){
 
                                         //fetch other students details
 
-                                        $q = "SELECT * FROM Preferencesforrooms WHERE MIS1 = '$student_mis'";
+                                        $q = "SELECT * FROM Roommates WHERE MIS1 = '$student_mis'";
                                         $res = mysqli_query($conn,$q);
                                         $rw = mysqli_fetch_assoc($res);
                                         

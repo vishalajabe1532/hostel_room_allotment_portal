@@ -26,7 +26,7 @@ if(isset($_POST['submit'])){
     if($row_imp){
         if($row_imp['Password'] == $password){
             //correct password login succesfull
-            $query_imp2 = "SELECT * FROM Preferencesforrooms WHERE MIS1 = '$mis'";
+            $query_imp2 = "SELECT * FROM Roommates WHERE MIS1 = '$mis'";
             $result_imp2 = mysqli_query($conn,$query_imp2);
             if(mysqli_num_rows($result_imp2)==0){
                 //not yet applied
@@ -34,10 +34,10 @@ if(isset($_POST['submit'])){
                 // check if other roommates are not in other persons preferences and if they are alloted hostel
 
                 //check if they have hostel
-                $query1  = "SELECT * FROM Applications WHERE MIS='$mis' AND IsApproved=1";
-                $query2  = "SELECT * FROM Applications WHERE MIS='$mis1' AND IsApproved=1";
-                $query3  = "SELECT * FROM Applications WHERE MIS='$mis2' AND IsApproved=1";
-                $query4  = "SELECT * FROM Applications WHERE MIS='$mis3' AND IsApproved=1";
+                $query1  = "SELECT * FROM Applications WHERE MIS='$mis' AND IsAllocated=1";
+                $query2  = "SELECT * FROM Applications WHERE MIS='$mis1' AND IsAllocated=1";
+                $query3  = "SELECT * FROM Applications WHERE MIS='$mis2' AND IsAllocated=1";
+                $query4  = "SELECT * FROM Applications WHERE MIS='$mis3' AND IsAllocated=1";
 
                 $result1 = mysqli_query($conn,$query1);
                 $result2 = mysqli_query($conn,$query2);
@@ -52,25 +52,25 @@ if(isset($_POST['submit'])){
                                 // insert them as roommates
 
                                 // now check if roommates have been selected by other person
-                                $query1 = "SELECT * FROM Preferencesforrooms WHERE MIS1 = '$mis'";
-                                $query2 = "SELECT * FROM Preferencesforrooms WHERE MIS2 = '$mis'";
-                                $query3 = "SELECT * FROM Preferencesforrooms WHERE MIS3 = '$mis'";
-                                $query4 = "SELECT * FROM Preferencesforrooms WHERE MIS4 = '$mis'";
+                                $query1 = "SELECT * FROM Roommates WHERE MIS1 = '$mis'";
+                                $query2 = "SELECT * FROM Roommates WHERE MIS2 = '$mis'";
+                                $query3 = "SELECT * FROM Roommates WHERE MIS3 = '$mis'";
+                                $query4 = "SELECT * FROM Roommates WHERE MIS4 = '$mis'";
 
-                                $query5 = "SELECT * FROM Preferencesforrooms WHERE MIS1 = '$mis2'";
-                                $query6 = "SELECT * FROM Preferencesforrooms WHERE MIS2 = '$mis2'";
-                                $query7 = "SELECT * FROM Preferencesforrooms WHERE MIS3 = '$mis2'";
-                                $query8 = "SELECT * FROM Preferencesforrooms WHERE MIS4 = '$mis2'";
+                                $query5 = "SELECT * FROM Roommates WHERE MIS1 = '$mis2'";
+                                $query6 = "SELECT * FROM Roommates WHERE MIS2 = '$mis2'";
+                                $query7 = "SELECT * FROM Roommates WHERE MIS3 = '$mis2'";
+                                $query8 = "SELECT * FROM Roommates WHERE MIS4 = '$mis2'";
 
-                                $query9 = "SELECT * FROM Preferencesforrooms WHERE MIS1 = '$mis3'";
-                                $query10 = "SELECT * FROM Preferencesforrooms WHERE MIS2 = '$mis3'";
-                                $query11 = "SELECT * FROM Preferencesforrooms WHERE MIS3 = '$mis3'";
-                                $query12 = "SELECT * FROM Preferencesforrooms WHERE MIS4 = '$mis3'";
+                                $query9 = "SELECT * FROM Roommates WHERE MIS1 = '$mis3'";
+                                $query10 = "SELECT * FROM Roommates WHERE MIS2 = '$mis3'";
+                                $query11 = "SELECT * FROM Roommates WHERE MIS3 = '$mis3'";
+                                $query12 = "SELECT * FROM Roommates WHERE MIS4 = '$mis3'";
 
-                                $query13 = "SELECT * FROM Preferencesforrooms WHERE MIS1 = '$mis4'";
-                                $query14 = "SELECT * FROM Preferencesforrooms WHERE MIS2 = '$mis4'";
-                                $query15 = "SELECT * FROM Preferencesforrooms WHERE MIS3 = '$mis4'";
-                                $query16 = "SELECT * FROM Preferencesforrooms WHERE MIS4 = '$mis4'";
+                                $query13 = "SELECT * FROM Roommates WHERE MIS1 = '$mis4'";
+                                $query14 = "SELECT * FROM Roommates WHERE MIS2 = '$mis4'";
+                                $query15 = "SELECT * FROM Roommates WHERE MIS3 = '$mis4'";
+                                $query16 = "SELECT * FROM Roommates WHERE MIS4 = '$mis4'";
 
                                 $result1 = mysqli_query($conn,$query1);
                                 $result2 = mysqli_query($conn,$query2);
@@ -99,7 +99,7 @@ if(isset($_POST['submit'])){
                                             if(mysqli_num_rows($result13)==0 && mysqli_num_rows($result14)==0 &&mysqli_num_rows($result15)==0 &&mysqli_num_rows($result16)==0){
 
                                                 // everything is fine
-                                                $query = "INSERT INTO Preferencesforrooms (MIS1,MIS2,MIS3,MIS4) VALUES ('$mis','$mis2','$mis3','$mis4')";
+                                                $query = "INSERT INTO Roommates (MIS1,MIS2,MIS3,MIS4) VALUES ('$mis','$mis2','$mis3','$mis4')";
                                                 $result = mysqli_query($conn,$query);
                                                 if($result){
                                                     //application recorded succesfully

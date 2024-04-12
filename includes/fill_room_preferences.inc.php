@@ -10,7 +10,7 @@ if(isset($_POST['fill_preferences'])){
     $mis= $_POST['mis_no'];
     
     
-    $query = "SELECT * FROM Preferencesforrooms WHERE MIS1 = '$mis'";
+    $query = "SELECT * FROM Roommates WHERE MIS1 = '$mis'";
     $result = mysqli_query($conn,$query);
     if(mysqli_num_rows($result) > 0){
 
@@ -52,7 +52,7 @@ if(isset($_POST['submit_preferences'])){
             //correct password login succesfull
             
             //check if they have filled their roommates
-            $query = "SELECT * FROM Preferencesforrooms WHERE MIS1 = '$mis'";
+            $query = "SELECT * FROM Roommates WHERE MIS1 = '$mis'";
             $result = mysqli_query($conn,$query);
             if(mysqli_num_rows($result) > 0){
                 //they have filled their roommates

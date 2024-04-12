@@ -11,7 +11,7 @@ if (isset($_POST['notify_hostel_allotment'])) {
 
    
 
-    $sql = "SELECT MIS FROM Applications WHERE IsApproved = 1";
+    $sql = "SELECT MIS FROM Applications WHERE IsAllocated = 1";
     $result = mysqli_query($conn, $sql);
 
     

@@ -173,7 +173,7 @@ for ($i = 0; $i < 8; $i++) {
     $br = $branch_list[$i];
 
 
-    $query =  "SELECT * FROM Applications A JOIN Students S ON A.MIS=S.MIS WHERE A.IsApproved=1 AND S.Branch='$br' ORDER BY A.CGPA DESC";
+    $query =  "SELECT * FROM Applications A JOIN Students S ON A.MIS=S.MIS WHERE A.IsAllocated=1 AND S.Branch='$br' ORDER BY A.CGPA DESC";
     $result = mysqli_query($conn,$query);
 
 

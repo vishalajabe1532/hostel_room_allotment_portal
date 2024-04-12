@@ -284,7 +284,7 @@ if(isset($_POST['submit_and_allocate'])){
 					echo '<td>'.$branches[$i]->alloted_students[$j]->category.'</td>';
 					echo '</tr>';
 					
-					$sqlupdate = "UPDATE Applications SET IsApproved = 1 WHERE MIS='$stdmis'";
+					$sqlupdate = "UPDATE Applications SET IsAllocated = 1 WHERE MIS='$stdmis'";
 					$resultupdate = mysqli_query($conn,$sqlupdate);
 					// if($resultupdate){
 					// 	echo 'Applications table updated successfully!';
