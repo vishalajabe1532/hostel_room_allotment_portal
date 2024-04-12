@@ -5,6 +5,8 @@
 
 
 <?php
+error_reporting(E_ALL & ~E_NOTICE);
+ini_set('display_errors', 0);
 
 if(isset($_POST['submit_and_allocate'])){
 	require 'config.inc.php';
@@ -51,11 +53,21 @@ if(isset($_POST['submit_and_allocate'])){
                 $remaining = false;
                 for ($j=0; $j < 8; $j++) { 
                     
-                    if($i < count($rows[$j])){       // maybe problem is here
+                    if($i < count($rows[$j])){       
                         $remaining = true;
-
-
                         $student_mis = $rows[$j][$i]['MIS'];
+
+                        //check if room allocation is already done
+                        $q = "SELECT * FROM Rooms WHERE MIS1 = '$student_mis'";
+                        $r = mysqli_query($conn,$q);
+                        if(mysqli_num_rows($r) > 0){
+                            echo "<script type='text/javascript'>alert('Room Allocation is already done'); window.location.href='../allocated_rooms.php?error=allocationalreadydone';</script>";
+                            exit();
+
+                        }
+
+
+
                         $query  = "SELECT * FROM Preferencesforrooms WHERE MIS1 = '$student_mis'";
                         $result = mysqli_query($conn,$query);
                         if(mysqli_num_rows($result) > 0){
