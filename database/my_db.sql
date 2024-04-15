@@ -20,7 +20,7 @@ DROP TABLE IF EXISTS `Flags`;
 CREATE TABLE `Flags` (
   `ID` int(10) NOT NULL AUTO_INCREMENT,
   `Application_form_open` tinyint(1) DEFAULT 0,
-  `Application_form_validity` int(10) DEFAULT 0,
+  `Application_form_closing` DATE DEFAULT '2025-01-01', 
   `Hostel_allocation_done` tinyint(1) DEFAULT 0,
   `Room_allocation_done` tinyint(1) DEFAULT 0,
   PRIMARY KEY (`ID`)
@@ -96,9 +96,6 @@ CREATE TABLE `Roommates` (
   `MIS2` varchar(255) NOT NULL,
   `MIS3` varchar(255) NOT NULL,
   `MIS4` varchar(255) NOT NULL,
-  `Status2` ENUM('neutral', 'agree','disagree') NOT NULL DEFAULT 'neutral',
-  `Status3` ENUM('neutral', 'agree','disagree') NOT NULL DEFAULT 'neutral',
-  `Status4` ENUM('neutral', 'agree','disagree') NOT NULL DEFAULT 'neutral',
   PRIMARY KEY (`MIS1`),
   FOREIGN KEY (`MIS1`) REFERENCES `Students` (`MIS`) ON DELETE CASCADE,
   FOREIGN KEY (`MIS2`) REFERENCES `Students` (`MIS`) ON DELETE CASCADE,

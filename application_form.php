@@ -1,5 +1,11 @@
 <?php
   require 'includes/config.inc.php';
+  $today_date = date("Y-m-d");
+
+  $query = "SELECT * FROM Flags WHERE ID = 1";
+  $result=mysqli_query($conn,$query);
+  $row = mysqli_fetch_assoc($result);
+  if($row['Application_form_open'] == 1 && $today_date <= $row['Application_form_closing']){
 ?>
 
 <!DOCTYPE html>
@@ -67,14 +73,14 @@
 							<li>
 								<a  href="application_form.php">Application Form</a>
 							</li>
+							<li>
+								<a href="hostel_allotment_list_for_students.php">View Hostel Allotment List</a>
+							</li>
 							
 							<li>
 								<a  href="fill_roommates.php">Fill Roommates</a>
 							</li>
 							
-							<li>
-								<a href="hostel_allotment_list_for_students.php">View Hostel Allotment List</a>
-							</li>
 
 							<li>
 								<a href="view_my_room.php">View My Room</a>
@@ -207,3 +213,13 @@
 
 </body>
 </html>
+
+
+<?php
+  }
+  else{
+	// echo "<script type='text/javascript'>alert('Application forms are not open for Applications.')</script>";
+	echo "<script type='text/javascript'>alert('Application forms are not open for Applications.'); window.location.href='home.php?error=formnotopen';</script>";
+
+  }
+?>

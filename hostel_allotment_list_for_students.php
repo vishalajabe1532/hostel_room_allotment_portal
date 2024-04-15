@@ -1,5 +1,17 @@
+
+
 <?php
   require 'includes/config.inc.php';
+  $mis = $_SESSION['mis'];
+  $query = "SELECT * FROM Flags WHERE ID = 1";
+  $result=mysqli_query($conn,$query);
+  $row = mysqli_fetch_assoc($result);
+  
+  if($row['Hostel_allocation_done']==1 ){
+    
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -67,14 +79,14 @@
 							<li>
 								<a  href="application_form.php">Application Form</a>
 							</li>
+							<li>
+								<a href="hostel_allotment_list_for_students.php">View Hostel Allotment List</a>
+							</li>
 							
 							<li>
 								<a  href="fill_roommates.php">Fill Roommates</a>
 							</li>
 							
-							<li>
-								<a href="hostel_allotment_list_for_students.php">View Hostel Allotment List</a>
-							</li>
 
 							<li>
 								<a href="view_my_room.php">View My Room</a>
@@ -294,3 +306,13 @@ for ($i = 0; $i < 8; $i++) {
 
 </body>
 </html>
+
+
+<?php
+  }
+  else if($row['Hostel_allocation_done']==0){
+    echo "<script type='text/javascript'>alert('Hostel Allocation is not done yet.'); window.location.href='home.php?error=allocationnotdone';</script>";
+    
+  }
+?>
+  

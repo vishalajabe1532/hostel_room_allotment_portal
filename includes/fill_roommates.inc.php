@@ -1,7 +1,7 @@
 
 <?php
-error_reporting(E_ALL & ~E_NOTICE);
-ini_set('display_errors', 0);
+// error_reporting(E_ALL & ~E_NOTICE);
+// ini_set('display_errors', 0);
    //echo 'Hello';
    
 if(isset($_POST['submit'])){
@@ -35,19 +35,19 @@ if(isset($_POST['submit'])){
 
                 //check if they have hostel
                 $query1  = "SELECT * FROM Applications WHERE MIS='$mis' AND IsAllocated=1";
-                $query2  = "SELECT * FROM Applications WHERE MIS='$mis1' AND IsAllocated=1";
-                $query3  = "SELECT * FROM Applications WHERE MIS='$mis2' AND IsAllocated=1";
-                $query4  = "SELECT * FROM Applications WHERE MIS='$mis3' AND IsAllocated=1";
+                $query2  = "SELECT * FROM Applications WHERE MIS='$mis2' AND IsAllocated=1";
+                $query3  = "SELECT * FROM Applications WHERE MIS='$mis3' AND IsAllocated=1";
+                $query4  = "SELECT * FROM Applications WHERE MIS='$mis4' AND IsAllocated=1";
 
                 $result1 = mysqli_query($conn,$query1);
                 $result2 = mysqli_query($conn,$query2);
                 $result3 = mysqli_query($conn,$query3);
                 $result4 = mysqli_query($conn,$query4);
 
-                if($result1){
-                    if($result2){
-                        if($result3){
-                            if($result4){
+                if(mysqli_num_rows($result1)>0){
+                    if(mysqli_num_rows($result2)>0){
+                        if(mysqli_num_rows($result3)>0){
+                            if(mysqli_num_rows($result4)>0){
                                 // all are alloted with hostel
                                 // insert them as roommates
 
@@ -140,19 +140,19 @@ if(isset($_POST['submit'])){
 
                             }
                             else{
-                                echo "<script type='text/javascript'>alert('Some students have not been allocated a hostel'); window.location.href='../fill_roommates.php?error=hostelnotallotedtosomeone';</script>";
+                                echo "<script type='text/javascript'>alert('Roommate 3 is not allocated to hostel'); window.location.href='../fill_roommates.php?error=hostelnotalloted';</script>";
                             }
                         }
                         else{
-                            echo "<script type='text/javascript'>alert('Some students have not been allocated a hostel'); window.location.href='../fill_roommates.php?error=hostelnotallotedtosomeone';</script>";
+                            echo "<script type='text/javascript'>alert('Roommate 2 is not allocated to hostel'); window.location.href='../fill_roommates.php?error=hostelnotalloted';</script>";
                         }
                     }
                     else{
-                        echo "<script type='text/javascript'>alert('Some students have not been allocated a hostel'); window.location.href='../fill_roommates.php?error=hostelnotallotedtosomeone';</script>";
+                        echo "<script type='text/javascript'>alert('Roommate 1 is not allocated to hostel'); window.location.href='../fill_roommates.php?error=hostelnotalloted';</script>";
                     }
                 }
                 else{
-                    echo "<script type='text/javascript'>alert('Some students have not been allocated a hostel'); window.location.href='../fill_roommates.php?error=hostelnotallotedtosomeone';</script>";
+                    echo "<script type='text/javascript'>alert('You are not allocated to hostel'); window.location.href='../fill_roommates.php?error=hostelnotalloted';</script>";
                 }
 
 
@@ -161,7 +161,7 @@ if(isset($_POST['submit'])){
             else{
                 //already applied
                 // header("Location: ../application_form.php?error=alreadyapplied");
-                echo "<script type='text/javascript'>alert('You have Already applied.'); window.location.href='../fill_roommates.php?error=alreadyapplied';</script>";
+                echo "<script type='text/javascript'>alert('You have Already selected your roommates.'); window.location.href='../home.php?error=alreadyapplied';</script>";
             }
         }
         else{

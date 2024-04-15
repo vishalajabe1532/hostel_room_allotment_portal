@@ -153,6 +153,8 @@ if(isset($_POST['submit_and_allocate'])){
                 }
                 if($remaining == false){
                     // allotment completed
+                    $query = "UPDATE Flags SET Room_allocation_done = 1 WHERE ID=1";
+                    $result = mysqli_query($conn,$query);
                     echo "<script type='text/javascript'>alert('Allotment Completed'); window.location.href='../allocated_rooms.php?allocation=success';</script>";
                     break;
 

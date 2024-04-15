@@ -1,7 +1,13 @@
-<!-- <?php
+
+<?php
   require 'includes/config.inc.php';
-  
-?> -->
+  $today_date = date("Y-m-d");
+
+  $query = "SELECT * FROM Flags WHERE ID = 1";
+  $result=mysqli_query($conn,$query);
+  $row = mysqli_fetch_assoc($result);
+  if($row['Application_form_open'] == 0 && $today_date >= $row['Application_form_closing'] && $row['Hostel_allocation_done']==0 ){
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -67,25 +73,48 @@
 						<ul class="dropdown-menu agile_short_dropdown">
 							
 							<li>
-								<a href="allocate_hostel.php">Allocate Hostel</a>
+								<a href="view_all_students.php">View all Students</a>
 							</li>
-							
-							
+
+							<hr>
+
 							<!-- float application forms -->
 							<li>
-								<a href="float_application_forms.php">Float forms</a>
+								<a href="float_application_forms.php">Application forms</a>
 							</li>
-							<li>
-								<a href="allocate_rooms.php">Allocate Rooms</a>
-							</li>
+
+							<hr>
+
 							<li>
 								<a href="view_applications.php">View Applications</a>
 							</li>
+
+							<hr>
+
+							<li>
+								<a href="allocate_hostel.php">Allocate Hostel</a>
+							</li>
+
+							<hr>
+							
 							<li>
 								<a href="hostel_allotment_list.php">View Hostel Allotment List</a>
 							</li>
+
+							<hr>
+							
+							<li>
+								<a href="allocate_rooms.php">Allocate Rooms</a>
+							</li>
+
+							<hr>
+
 							<li>
 								<a href="allocated_rooms.php">View Allocated Rooms</a>
+							</li>
+							
+							<li>
+								<a href="restart_process.php">Restart Allocation Process</a>
 							</li>
 
 
@@ -117,6 +146,7 @@
 	</div>
 </header>
 <!--Header-->
+
 
 
 </div>
@@ -189,8 +219,8 @@
 	
 // }
 
-error_reporting(E_ALL & ~E_NOTICE);
-ini_set('display_errors', 0);
+// error_reporting(E_ALL & ~E_NOTICE);
+// ini_set('display_errors', 0);
 
 function getStudentName($mis){
 	require 'config.inc.php';
@@ -244,6 +274,15 @@ if(isset($_POST['submit_and_allocate'])){
 			Allocation($branches);
 			// display_branch_student($branches,$branch_list);
 
+
+			$fquery = "UPDATE Flags SET Hostel_allocation_done = 1 WHERE ID=1";
+			$fresult = mysqli_query($conn,$fquery);
+			if($fresult){
+				//fine
+			}
+			else{
+				//sql problem
+			}
 
 
 
@@ -301,28 +340,31 @@ if(isset($_POST['submit_and_allocate'])){
 
 
 
+
+
 		
+			echo "<script type='text/javascript'>alert('Hostel Allotment is done'); window.location.href='hostel_allotment_list.php?allocation=success';</script>";
+			
+			
+			
 
 
 
 
-
-
-
-
+			
         }
         else{
             // header("Location: ../application_form.php?error=incorrectpassword");
-            echo "<script type='text/javascript'>alert('Incorrect Password!!'); window.location.href='../allocate.php?error=incorrectpassword';</script>";
+            echo "<script type='text/javascript'>alert('Incorrect Password!!'); window.location.href='allocate_hostel.php?error=incorrectpassword';</script>";
           
         }
     }
 	else{
-			echo "<script type='text/javascript'>alert('Some error occured for checking password'); window.location.href='../allocate.php?error=sqlerror';</script>";   
+			echo "<script type='text/javascript'>alert('Some error occured for checking password'); window.location.href='allocate_hostel.php?error=sqlerror';</script>";   
 		
 		}
 }
-	
+
 ?>
 
 
@@ -431,3 +473,23 @@ document.getElementById("notify_form").addEventListener("submit", function(event
 </html>
 
 
+
+
+
+
+<?php
+  }
+  else if($row['Hostel_allocation_done']==1){
+	  echo "<script type='text/javascript'>alert('Hostel Allotment is already done'); window.location.href='hostel_allotment_list.php';</script>";
+
+  }
+  else if($row['Application_form_open'] == 0 && $today_date <= $row['Application_form_closing']){
+	  echo "<script type='text/javascript'>alert('Application forms are not opened for Applications.'); window.location.href='float_application_forms.php?error=formnotopen';</script>";
+
+  }
+  else if($row['Application_form_open'] == 1 && $today_date <= $row['Application_form_closing']){
+	  echo "<script type='text/javascript'>alert('You are still accepting application forms, Close the forms first.'); window.location.href='float_application_forms.php?error=formstillopen';</script>";
+	  
+  }
+  
+?>

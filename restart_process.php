@@ -1,29 +1,12 @@
-<?php
+<!-- <?php
   require 'includes/config.inc.php';
-  $mis = $_SESSION['mis'];
-  $query = "SELECT * FROM Flags WHERE ID = 1";
-  $result=mysqli_query($conn,$query);
-  $row = mysqli_fetch_assoc($result);
-  // roommates can be filled if hostel allocation is done and that student has got hostel
-  $cquery = "SELECT * FROM Applications WHERE MIS= '$mis' AND IsAllocated = 1";
-  $cresult = mysqli_query($conn,$cquery);
-  if($row['Hostel_allocation_done']==1 && mysqli_num_rows($cresult) > 0){
-    $sql = "SELECT CGPA FROM Applications WHERE MIS='$mis'";
-    $result = $conn->query($sql);
-    $row = $result->fetch_assoc();
-    $cgpa = $row['CGPA'];
-
-    $today_date = date("Y-m-d");
-
-
-
-?>
-
-
+  
+  ?> -->
+  
   <!DOCTYPE html>
   <html lang="en">
   <head>
-  <title> HRAP | Students | Fill Roommates and Room Preferences</title>
+  <title> HRAP | Manager | Allocate Hostel</title>
       
       <!-- Meta tag Keywords -->
       <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -53,11 +36,6 @@
       <link href="//fonts.googleapis.com/css?family=Poiret+One&amp;subset=cyrillic,latin-ext" rel="stylesheet">
       <link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&amp;subset=cyrillic,cyrillic-ext,greek,greek-ext,latin-ext,vietnamese" rel="stylesheet">
       <!-- //web-fonts -->
-      <!-- <style>
-        .less_width{
-            width:20%;
-        }
-      </style> -->
       
   </head>
   
@@ -66,23 +44,23 @@
   <!-- banner -->
   <div class="inner-page-banner" id="home"> 	   
 
+
 <!--Header-->
 <header>
 	<div class="container agile-banner_nav">
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 
-			<h1><a class="navbar-brand" href="home.php">COEP <span class="display"></span></a></h1>
+			<h1><a class="navbar-brand" href="home_manager.php">COEP <span class="display"></span></a></h1>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 			</button>
-
 			<div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item active">
-						<a class="nav-link" href="home.php">Home <span class="sr-only">(current)</span></a>
+						<a class="nav-link" href="home_manager.php">Home <span class="sr-only">(current)</span></a>
 					</li>
 
-					
+
 					<li class="dropdown nav-item">
 						<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">Operations
 							<b class="caret"></b>
@@ -90,34 +68,66 @@
 						<ul class="dropdown-menu agile_short_dropdown">
 							
 							<li>
-								<a  href="application_form.php">Application Form</a>
+								<a href="view_all_students.php">View all Students</a>
 							</li>
+
+							<hr>
+
+							<!-- float application forms -->
 							<li>
-								<a href="hostel_allotment_list_for_students.php">View Hostel Allotment List</a>
+								<a href="float_application_forms.php">Application forms</a>
 							</li>
-							
-							<li>
-								<a  href="fill_roommates.php">Fill Roommates</a>
-							</li>
-							
+
+							<hr>
 
 							<li>
-								<a href="view_my_room.php">View My Room</a>
+								<a href="view_applications.php">View Applications</a>
+							</li>
+
+							<hr>
+
+							<li>
+								<a href="allocate_hostel.php">Allocate Hostel</a>
+							</li>
+
+							<hr>
+							
+							<li>
+								<a href="hostel_allotment_list.php">View Hostel Allotment List</a>
+							</li>
+
+							<hr>
+							
+							<li>
+								<a href="allocate_rooms.php">Allocate Rooms</a>
+							</li>
+
+							<hr>
+
+							<li>
+								<a href="allocated_rooms.php">View Allocated Rooms</a>
+							</li>
+							
+							<li>
+								<a href="restart_process.php">Restart Allocation Process</a>
 							</li>
 
 
 						</ul>
 					</li>
-					
-					
 
+
+
+
+					
+					
 					<li class="dropdown nav-item">
-						<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"><?php echo $_SESSION['mis']; ?>
+						<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"><?php echo $_SESSION['username']; ?>
 							<b class="caret"></b>
 						</a>
 						<ul class="dropdown-menu agile_short_dropdown">
 							<li>
-								<a href="profile.php">My Profile</a>
+								<a href="admin/manager_profile.php">My Profile</a>
 							</li>
 							<li>
 								<a href="includes/logout.inc.php">Logout</a>
@@ -132,6 +142,8 @@
 </header>
 <!--Header-->
 
+
+
   </div>
   <!-- //banner --> 
   <br><br><br>
@@ -139,86 +151,24 @@
   
   
   <section class="contact py-5">
-	<div class="container">
-		<h2 class="heading text-capitalize mb-sm-5 mb-4"> Fill Roommates </h2>
-			<div class="mail_grid_w3l">
-				<form action="includes/fill_roommates.inc.php?" method="POST">
-					<div class="row">
-						<div class="col-md-6 contact_left_grid" data-aos="fade-right">
-							<div class="contact-fields-w3ls">
-								<input type="text" name="name" placeholder="Name" value="<?php echo $_SESSION['name']; ?>" required="" readonly>
-							</div>
-							<div class="contact-fields-w3ls">
-								<input type="text" name="mis_no1" placeholder="MIS" value="<?php echo $_SESSION['mis']?>" required="" readonly>
-							</div>
-							<div class="contact-fields-w3ls">
-								<input type="text" name="year_of_study" placeholder="Year of study" value="<?php echo $_SESSION['year_of_study']?>" required="" readonly>
-							</div>
-							<div class="contact-fields-w3ls">
-								<input type="text" name="cgpa" placeholder="CGPA" value="<?php echo $cgpa?>" required="" readonly>
-							</div>
-                            <!-- roommate 1 -->
-							<div class="contact-fields-w3ls">
-                                <input type="text" name="mis_no2" placeholder="MIS of Roommate 1"  required="" >
-							</div>
-                            <!-- roommate 2 -->
-							<div class="contact-fields-w3ls">
-                                <input type="text" name="mis_no3" placeholder="MIS of Roommate 2"  required="" >
-							</div>
-                            <!-- roommate 3 -->
-							<div class="contact-fields-w3ls">
-								<input type="text" name="mis_no4" placeholder="MIS of Roommate 3"  required="" >
-							</div>
-							
-							<div class="contact-fields-w3ls">
-								<input type="password" name="pwd" placeholder="Your Password" required="">
-							</div>
-						</div>
-						
-						<input type="submit" name="submit" value="Click to Submit">
-						
-					</div>
-
-				</form>
-			</div>
-		
-	</div>
-</section>
-
-
-
-
-
-
-
-
-
-
-
-<section class="contact py-5" style="width:100%">
-	<div class="container" style="width:100%">
-        
-
-        <div class="mail_grid_w3l" style="width:100%">
-            <form action="includes/fill_room_preferences.inc.php" method="POST" >
-                <input type="hidden" name="mis_no" value="<?php echo $_SESSION['mis']; ?>">
-                <input type="submit" value="Fill Room Preferences" name="fill_preferences">
-            </form>
-        </div>
-
-
-
-	</div>
-</section>
-
-
-
-
-
-
-
-
-
+      <div class="container">
+          <h2 class="heading text-capitalize mb-sm-5 mb-4">Enter your Credentials to Restart the process</h2>
+              <div class="mail_grid_w3l">
+                  <form action="includes/restart_process.inc.php" method="POST" >
+                      <div class="contact-fields-w3ls">
+                          <input type="text" name="username" placeholder="Username" value="<?php echo $_SESSION['username']; ?>" required="" readonly>
+                      </div>
+                      <div class="contact-fields-w3ls">
+                          <input type="password" name="pwd" placeholder="Password" required="">
+                      </div>
+                      
+                      <input type="submit" value="Restart The Process" name="submit_and_restart"></input>
+                  </form>
+              </div>
+      </div>
+  </section>
+  
+  
       
 
   
@@ -230,7 +180,7 @@
 <footer class="py-5">
 	<div class="container py-md-5">
 		<div class="footer-logo mb-5 text-center">
-			<a class="navbar-brand" href="https://www.coeptech.ac.in/" target="_blank">COEP TECH</a>
+			<a class="navbar-brand"  href="https://www.coeptech.ac.in/" target="_blank">COEP TECH</a>
 		</div>
 	</div>
 </footer>
@@ -299,21 +249,4 @@
   </html>
   
   
-
-<?php
-  }
-  else if($row['Hostel_allocation_done']==0){
-    echo "<script type='text/javascript'>alert('Hostel Allocation is not done yet.'); window.location.href='home.php?error=allocationnotdone';</script>";
-    
-  }
-  else if(mysqli_num_rows($cresult) ==0){
-    echo "<script type='text/javascript'>alert('You have been not allocated to hostel.'); window.location.href='home.php?error=notallocated';</script>";
-
-  }
-  else{
-	// echo "<script type='text/javascript'>alert('Application forms are not open for Applications.')</script>";
-	echo "<script type='text/javascript'>alert('Something went wrong.'); window.location.href='home.php';</script>";
-
-  }
-?>
   

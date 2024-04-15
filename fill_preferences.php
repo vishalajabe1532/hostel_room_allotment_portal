@@ -52,6 +52,7 @@
   <!-- banner -->
   <div class="inner-page-banner" id="home"> 	   
 
+
 <!--Header-->
 <header>
 	<div class="container agile-banner_nav">
@@ -78,14 +79,14 @@
 							<li>
 								<a  href="application_form.php">Application Form</a>
 							</li>
+							<li>
+								<a href="hostel_allotment_list_for_students.php">View Hostel Allotment List</a>
+							</li>
 							
 							<li>
 								<a  href="fill_roommates.php">Fill Roommates</a>
 							</li>
 							
-							<li>
-								<a href="hostel_allotment_list_for_students.php">View Hostel Allotment List</a>
-							</li>
 
 							<li>
 								<a href="view_my_room.php">View My Room</a>
@@ -136,10 +137,10 @@
         
 
         <div class="mail_grid_w3l" style="width:100%">
-            <form action="includes/fill_room_preferences.inc.php" method="POST" onsubmit="return validateForm()">
+            <form action="includes/fill_room_preferences.inc.php" method="POST" onsubmit="return validateForm()" >
                 <?php
                 for ($i = 1; $i <= 50; $i++) {
-                    echo '<input style="width: 19%; margin-right: 1%; margin-bottom: 1rem; display: inline-block;" class="allocate_inp" type="number" name="pref' . $i . '" placeholder="Preference ' . $i . '" required="">';
+                    echo '<input style="width: 19%; margin-right: 1%; margin-bottom: 1rem; display: inline-block;" class="allocate_inp" type="number" name="pref' . $i . '" placeholder="Preference ' . $i . '" required="" min="1" max="50" >';
 
                     // Start a new row after every 5 input boxes
                     if ($i % 5 == 0) {
@@ -147,6 +148,7 @@
                     }
                 }
                 ?>
+
                 <br>
                 <br>
 
@@ -166,26 +168,29 @@
 	</div>
 </section>
 
-
-
-
-
-	
-<script type="text/javascript">
+<script>
     function validateForm() {
-        var inputs = document.querySelectorAll('.allocate_inp');
-        for (var i = 0; i < inputs.length; i++) {
-            if (inputs[i].value < 0 || isNaN(inputs[i].value) || inputs[i].value.indexOf('.') !== -1) {
-                alert("Please enter a non-negative integer.");
-                inputs[i].focus();
-                return false;
+        let inputs = document.querySelectorAll('.allocate_inp');
+        let values = [];
+
+        inputs.forEach(function(item) {
+            if(item.value === "") {
+                alert('Please fill out all preference fields.');
+                return false; // Prevent form submission
             }
+            values.push(item.value);
+        });
+
+        let duplicates = values.filter((item, index) => values.indexOf(item) !== index);
+
+        if (duplicates.length > 0) {
+            alert('Please ensure all preferences are unique.');
+            return false; // Prevent form submission
         }
-        return true;
+
+        return true; // Allow form submission
     }
 </script>
-
-
 
 
 

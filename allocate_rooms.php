@@ -1,7 +1,13 @@
-<!-- <?php
+
+<?php
   require 'includes/config.inc.php';
-  
-  ?> -->
+  $today_date = date("Y-m-d");
+
+  $query = "SELECT * FROM Flags WHERE ID = 1";
+  $result=mysqli_query($conn,$query);
+  $row = mysqli_fetch_assoc($result);
+  if($row['Hostel_allocation_done'] == 1  && $row['Room_allocation_done']==0 ){
+?>
   
   <!DOCTYPE html>
   <html lang="en">
@@ -67,25 +73,48 @@
 						<ul class="dropdown-menu agile_short_dropdown">
 							
 							<li>
-								<a href="allocate_hostel.php">Allocate Hostel</a>
+								<a href="view_all_students.php">View all Students</a>
 							</li>
-							
-							
+
+							<hr>
+
 							<!-- float application forms -->
 							<li>
-								<a href="float_application_forms.php">Float forms</a>
+								<a href="float_application_forms.php">Application forms</a>
 							</li>
-							<li>
-								<a href="allocate_rooms.php">Allocate Rooms</a>
-							</li>
+
+							<hr>
+
 							<li>
 								<a href="view_applications.php">View Applications</a>
 							</li>
+
+							<hr>
+
+							<li>
+								<a href="allocate_hostel.php">Allocate Hostel</a>
+							</li>
+
+							<hr>
+							
 							<li>
 								<a href="hostel_allotment_list.php">View Hostel Allotment List</a>
 							</li>
+
+							<hr>
+							
+							<li>
+								<a href="allocate_rooms.php">Allocate Rooms</a>
+							</li>
+
+							<hr>
+
 							<li>
 								<a href="allocated_rooms.php">View Allocated Rooms</a>
+							</li>
+							
+							<li>
+								<a href="restart_process.php">Restart Allocation Process</a>
 							</li>
 
 
@@ -117,7 +146,6 @@
 	</div>
 </header>
 <!--Header-->
-
 
   </div>
   <!-- //banner --> 
@@ -224,4 +252,21 @@
   </html>
   
   
+
+
+  <?php
+  }
+  else if($row['Hostel_allocation_done']==0){
+	  echo "<script type='text/javascript'>alert('Hostel Allotment is not done yet'); window.location.href='allocate_hostel.php';</script>";
+
+  }
+  else if( $row['Room_allocation_done']==1){
+	  echo "<script type='text/javascript'>alert('Room allocation is already done.'); window.location.href='allocated_rooms.php';</script>";
+
+  }
+  else{
+	//   echo "<script type='text/javascript'>alert('You are still accepting application forms, Close the forms first.'); window.location.href='float_application_forms.php?error=formstillopen';</script>";
+	  
+  }
   
+?>

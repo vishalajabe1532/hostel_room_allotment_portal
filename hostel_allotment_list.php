@@ -67,25 +67,48 @@
 						<ul class="dropdown-menu agile_short_dropdown">
 							
 							<li>
-								<a href="allocate_hostel.php">Allocate Hostel</a>
+								<a href="view_all_students.php">View all Students</a>
 							</li>
-							
-							
+
+							<hr>
+
 							<!-- float application forms -->
 							<li>
-								<a href="float_application_forms.php">Float forms</a>
+								<a href="float_application_forms.php">Application forms</a>
 							</li>
-							<li>
-								<a href="allocate_rooms.php">Allocate Rooms</a>
-							</li>
+
+							<hr>
+
 							<li>
 								<a href="view_applications.php">View Applications</a>
 							</li>
+
+							<hr>
+
+							<li>
+								<a href="allocate_hostel.php">Allocate Hostel</a>
+							</li>
+
+							<hr>
+							
 							<li>
 								<a href="hostel_allotment_list.php">View Hostel Allotment List</a>
 							</li>
+
+							<hr>
+							
+							<li>
+								<a href="allocate_rooms.php">Allocate Rooms</a>
+							</li>
+
+							<hr>
+
 							<li>
 								<a href="allocated_rooms.php">View Allocated Rooms</a>
+							</li>
+							
+							<li>
+								<a href="restart_process.php">Restart Allocation Process</a>
 							</li>
 
 
@@ -117,7 +140,6 @@
 	</div>
 </header>
 <!--Header-->
-
 
 </div>
 <!-- //banner --> 

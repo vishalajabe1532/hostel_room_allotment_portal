@@ -68,25 +68,48 @@
 						<ul class="dropdown-menu agile_short_dropdown">
 							
 							<li>
-								<a href="allocate_hostel.php">Allocate Hostel</a>
+								<a href="view_all_students.php">View all Students</a>
 							</li>
-							
-							
+
+							<hr>
+
 							<!-- float application forms -->
 							<li>
-								<a href="float_application_forms.php">Float forms</a>
+								<a href="float_application_forms.php">Application forms</a>
 							</li>
-							<li>
-								<a href="allocate_rooms.php">Allocate Rooms</a>
-							</li>
+
+							<hr>
+
 							<li>
 								<a href="view_applications.php">View Applications</a>
 							</li>
+
+							<hr>
+
+							<li>
+								<a href="allocate_hostel.php">Allocate Hostel</a>
+							</li>
+
+							<hr>
+							
 							<li>
 								<a href="hostel_allotment_list.php">View Hostel Allotment List</a>
 							</li>
+
+							<hr>
+							
+							<li>
+								<a href="allocate_rooms.php">Allocate Rooms</a>
+							</li>
+
+							<hr>
+
 							<li>
 								<a href="allocated_rooms.php">View Allocated Rooms</a>
+							</li>
+							
+							<li>
+								<a href="restart_process.php">Restart Allocation Process</a>
 							</li>
 
 
@@ -119,7 +142,6 @@
 </header>
 <!--Header-->
 
-
   </div>
   <!-- //banner --> 
   <br><br><br>
@@ -131,6 +153,11 @@
           <h2 class="heading text-capitalize mb-sm-5 mb-4">Enter your Password to float Application forms</h2>
               <div class="mail_grid_w3l">
                   <form action="includes/float_application_forms.inc.php" method="POST">
+                      <label for="applicationDate">Application Closing Date:</label>
+                      <div class="contact-fields-w3ls">
+                          <input type="date" id="applicationDate" name="application_closing_date" required="">
+                      </div>
+
                       <div class="contact-fields-w3ls">
                           <input type="text" name="username" placeholder="Username" value="<?php echo $_SESSION['username']; ?>" required="" readonly>
                       </div>
@@ -139,6 +166,26 @@
                       </div>
                       
                       <input type="submit" value="Submit and Float Application Form" name="submit"></input>
+                  </form>
+              </div>
+      </div>
+  </section>
+  
+  
+  <section class="contact py-5">
+      <div class="container">
+          <h2 class="heading text-capitalize mb-sm-5 mb-4">Close Application forms</h2>
+              <div class="mail_grid_w3l">
+                  <form action="includes/float_application_forms.inc.php" method="POST">
+
+                      <div class="contact-fields-w3ls">
+                          <input type="text" name="username" placeholder="Username" value="<?php echo $_SESSION['username']; ?>" required="" readonly>
+                      </div>
+                      <div class="contact-fields-w3ls">
+                          <input type="password" name="pwd" placeholder="Password" required="">
+                      </div>
+                      
+                      <input type="submit" value="Close Application Form" name="close_applications"></input>
                   </form>
               </div>
       </div>
