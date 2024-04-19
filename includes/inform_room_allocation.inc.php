@@ -36,13 +36,13 @@ if (isset($_POST['notify_room_allotment'])) {
                     $mail->isSMTP();
                     $mail->Host       = 'smtp.office365.com'; // Your SMTP server host
                     $mail->SMTPAuth   = true;
-                    $mail->Username   = 'ajabeva21.comp@coeptech.ac.in'; // Your SMTP username
-                    $mail->Password   = 'Maharaj@1532'; // Your SMTP password
+                    $mail->Username   = 'hrap.coeptech@outlook.com'; // Your SMTP username
+                    $mail->Password   = 'Hrap@2024'; // Your SMTP password
                     $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Enable TLS encryption
                     $mail->Port       = 587; // TCP port to connect to
                 
                     // Recipients
-                    $mail->setFrom('ajabeva21.comp@coeptech.ac.in', 'Ajabe Vishal Ashok');
+                    $mail->setFrom('hrap.coeptech@outlook.com', 'HRAP COEP HOSTEL');
                     $mail->addAddress($student_mail, $mis);
                     
                     // Content

@@ -189,7 +189,7 @@ LOCK TABLES Admin_Hostel_Manager WRITE;
 
 -- Add data to Admin_Hostel_Manager table
 INSERT INTO Admin_Hostel_Manager (Username, Name, MobNo, Mail, Password, IsAdmin) VALUES
-('admin', 'Vishal Ajabe', '7620873431', 'ajabeva21.comp@coeptech.ac.in', 'admin', 1),
+('admin', 'Vishal Ajabe', '7620873431', 'hrap.coeptech@outlook.com', 'admin', 1),
 ('manager', 'Anuj Abhang', '7620873431', 'abhangap21.comp@coeptech.ac.in', 'manager', 0);
 
 -- Release lock on Admin_Hostel_Manager table
@@ -200,7 +200,7 @@ LOCK TABLES Mails WRITE;
 
 -- Add data to Mails table
 -- INSERT INTO Mails (MIS, Mail) VALUES
--- ('112103007', 'ajabeva21.comp@coeptech.ac.in'),
+-- ('112103007', 'hrap.coeptech@outlook.com'),
 -- ('112103071', 'khemnarst21.comp@coeptech.ac.in'),
 -- ('112103041', 'dudhalevs21.comp@coeptech.ac.in'),
 -- ('112103003', 'abhangap21.comp@coeptech.ac.in');

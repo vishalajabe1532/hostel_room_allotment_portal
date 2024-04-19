@@ -31,10 +31,12 @@ if (isset($_POST['get_otp'])) {
 
         }
 
+        // $otp = 2222;
         $otp = rand(111111, 999999);
         // Store OTP in session along with timestamp
         $_SESSION['otp'] = $otp;
         $_SESSION['otp_timestamp'] = time();
+        echo "<script type='text/javascript'>alert('OTP has been sent to your registered COEP mail address. Valid for 5 minutes.'); window.location.href='../signup2.php?otpsent=success';</script>";
 
         // Create a new PHPMailer instance
         $mail = new PHPMailer(true);
@@ -44,13 +46,13 @@ if (isset($_POST['get_otp'])) {
             $mail->isSMTP();
             $mail->Host       = 'smtp.office365.com'; // Your SMTP server host
             $mail->SMTPAuth   = true;
-            $mail->Username   = 'ajabeva21.comp@coeptech.ac.in'; // Your SMTP username
-            $mail->Password   = 'Maharaj@1532'; // Your SMTP password
+            $mail->Username   = 'hrap.coeptech@outlook.com'; // Your SMTP username
+            $mail->Password   = 'Hrap@2024'; // Your SMTP password
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Enable TLS encryption
             $mail->Port       = 587; // TCP port to connect to
 
             // Recipients
-            $mail->setFrom('ajabeva21.comp@coeptech.ac.in', 'Ajabe Vishal Ashok');
+            $mail->setFrom('hrap.coeptech@outlook.com', 'HRAP COEP HOSTEL');
             $mail->addAddress($student_mail, $mis);
 
             // Content
@@ -61,12 +63,12 @@ if (isset($_POST['get_otp'])) {
             $mail->send(); // Send the email
             // echo "success"; // This is unnecessary if you're redirecting
             echo "<script type='text/javascript'>alert('OTP has been sent to your registered COEP mail address. Valid for 5 minutes.'); window.location.href='../signup2.php?otpsent=success';</script>";
-
+        
             exit();
         } catch (Exception $e) {
-            echo "<script type='text/javascript'>alert('OTP not due to some problem.'); window.location.href='../signup.php?error=someerror';</script>";
-
-        }
+                echo "<script type='text/javascript'>alert('OTP not due to some problem.'); window.location.href='../signup.php?error=someerror';</script>";
+            
+            }
     } else {
         header("Location: ../signup.php?error=nouser");
         exit();

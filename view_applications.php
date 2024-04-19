@@ -193,7 +193,7 @@ require 'includes/config.inc.php';
 
 
 echo '<div class="container ">';
-echo '<h3 class="heading text-capitalize " >Appications for Hostel</h3>';
+echo '<h3 class="heading text-capitalize " >Applications for Hostel</h3>';
 
 echo '<table class="table table-hover">';
 echo '<thead>';

@@ -29,7 +29,9 @@ if (isset($_POST['login-submit'])) {
         $pwdCheck = true;
       }
       if($pwdCheck == false){
-        header("Location: ../index.php?error=wrongpwd");
+        echo "<script type='text/javascript'>alert('Wrong Password!!.'); window.location.href='../index.php?error=wrongpwd';</script>";
+
+        // header("Location: ../index.php?error=wrongpwd");
         exit();
       }
       else if($pwdCheck == true) {
@@ -57,7 +59,8 @@ if (isset($_POST['login-submit'])) {
       }
     }
     else{
-      header("Location: ../index.php?error=nouser");
+      echo "<script type='text/javascript'>alert('User not found.'); window.location.href='../index.php?error=nouser';</script>";
+      // header("Location: ../index.php?error=nouser");
       exit();
     }
   }

@@ -160,7 +160,7 @@
         <h2 class="heading text-capitalize mb-sm-5 mb-4">Enter Number of seats per branch</h2>
 			<div class="mail_grid_w3l">
 				<form action="allocate_hostel.php" method="POST" onsubmit="return validateForm()">
-					<div>
+					<!-- <div>
 						<label class="heading text-capitalize" style="font-weight:bold;" for="civil">civil</label>
                         <input class="allocate_inp" type="number" id="civil" name="civil" required>
                     </div>
@@ -191,7 +191,7 @@
                     <div>
 						<label class="heading text-capitalize " style="font-weight:bold;" for="production">production</label>
                         <input class="allocate_inp mb-4" type="number" id="production" name="prod" required>
-                    </div>
+                    </div> -->
 					<div class="contact-fields-w3ls">
 						<input type="text" name="username" placeholder="Username" value="<?php echo $_SESSION['username']; ?>" required="" readonly>
 					</div>
@@ -239,14 +239,14 @@ if(isset($_POST['submit_and_allocate'])){
 	
     $username= $_POST['username'];
     $password = $_POST['pwd'];
-    $civil = $_POST['civil'];
-    $comp = $_POST['comp'];
-    $elec = $_POST['elec'];
-    $entc = $_POST['entc'];
-    $instru = $_POST['instru'];
-    $mech = $_POST['mech'];
-    $meta = $_POST['meta'];
-    $prod = $_POST['prod'];
+    // $civil = $_POST['civil'];
+    // $comp = $_POST['comp'];
+    // $elec = $_POST['elec'];
+    // $entc = $_POST['entc'];
+    // $instru = $_POST['instru'];
+    // $mech = $_POST['mech'];
+    // $meta = $_POST['meta'];
+    // $prod = $_POST['prod'];
     
     
     
@@ -260,7 +260,8 @@ if(isset($_POST['submit_and_allocate'])){
 		if($row_imp['Password'] == $password){
 			//every thing fine
 			$branch_list = array('civil','comp','elec','entc','instru','mech','meta','prod');
-			$branch_capacity = array($civil, $comp, $elec, $entc, $instru,  $mech, $meta, $prod); // Example capacities for each branch
+			// $branch_capacity = array($civil, $comp, $elec, $entc, $instru,  $mech, $meta, $prod); // Example capacities for each branch
+			$branch_capacity = array(25, 25,25,25,25,25,25,25); // Example capacities for each branch
 
 			// Create an array to hold the branches
 			$branches = array();

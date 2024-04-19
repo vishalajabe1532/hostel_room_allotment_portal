@@ -30,9 +30,10 @@ if(isset($_POST['submit_and_restart'])){
 
             $query = "UPDATE Flags SET Application_form_closing = '2025-01-01', Hostel_allocation_done=0,Room_allocation_done=0 WHERE ID=1";
             $result=mysqli_query($conn,$query);
-            $query = "DELETE FROM Applications";
+            $query = "UPDATE Applications SET IsAllocated=0";
             $result=mysqli_query($conn,$query);
-            $query = "DELETE FROM Preferences";
+            $query = "UPDATE Rooms SET Is_alloted=0,MIS1=NULL, MIS2=NULL,MIS3=NULL,MIS4=NULL";
+            // $query = "DELETE FROM Preferences";
             $result=mysqli_query($conn,$query);
             
             echo "<script type='text/javascript'>alert('Process restarted'); window.location.href='../home_manager.php';</script>";
